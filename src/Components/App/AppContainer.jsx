@@ -5,11 +5,9 @@ import theme from '../../styles/theme';
 import AppPresenter from './AppPresenter';
 
 const AppContainer = () => (
-  <>
-    <ThemeProvider theme={theme}>
-      <AppPresenter />
-    </ThemeProvider>
-  </>
+  <ThemeProvider theme={theme}>
+    <AppPresenter />
+  </ThemeProvider>
 );
 
 export default AppContainer;

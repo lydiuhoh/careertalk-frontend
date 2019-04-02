@@ -1,13 +1,10 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import withRouteComponent from '../withRouteComponent';
 
-const Fairs = () => (
-  <>
-    <Helmet>
-      <title>Fairs | CareerTalk</title>
-    </Helmet>
-    <h1>Fairs</h1>
-  </>
-);
+class Fairs extends React.Component {
+  render() {
+    return <h1>Fairs</h1>;
+  }
+}
 
-export default Fairs;
+export default withRouteComponent(Fairs);
