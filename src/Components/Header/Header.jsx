@@ -61,7 +61,7 @@ const Menu = () => (
   </>
 );
 
-const Header = () => (
+const Header = props => (
   <Container>
     <HeaderColumn>
       <LogoImage src={require('../../images/logo_transparent.png')} />
@@ -71,7 +71,13 @@ const Header = () => (
       </TitleField>
     </HeaderColumn>
     <HeaderColumn>
-      <Menu />
+      {props.isSideBar ? (
+        <button type="button" onClick={props.toggleMenu}>
+          Open
+        </button>
+      ) : (
+        <Menu />
+      )}
     </HeaderColumn>
   </Container>
 );
