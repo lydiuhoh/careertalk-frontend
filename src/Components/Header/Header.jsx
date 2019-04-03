@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { HeaderMenu, MenuButton } from '../Menu';
 
 const Container = styled.header`
   background-color: #0d1d2d;
@@ -47,20 +48,6 @@ const LogoImage = styled.img`
   width: 55px;
 `;
 
-const MenuItem = styled.div`
-  padding: 3px 10px 3px 10px;
-`;
-
-const Menu = () => (
-  <>
-    <MenuItem>Featured</MenuItem>
-    <MenuItem>Fairs</MenuItem>
-    <MenuItem>Favorites</MenuItem>
-    <MenuItem>Map</MenuItem>
-    <MenuItem>Me</MenuItem>
-  </>
-);
-
 const Header = props => (
   <Container>
     <HeaderColumn>
@@ -72,11 +59,13 @@ const Header = props => (
     </HeaderColumn>
     <HeaderColumn>
       {props.isSideBar ? (
-        <button type="button" onClick={props.toggleMenu}>
-          Open
-        </button>
+        <MenuButton onClick={props.toggleMenu}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" />
+          </svg>
+        </MenuButton>
       ) : (
-        <Menu />
+        <HeaderMenu />
       )}
     </HeaderColumn>
   </Container>
