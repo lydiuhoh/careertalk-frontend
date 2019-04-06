@@ -1,5 +1,5 @@
 import React from 'react';
-import withRouteComponent from '../utils/withRouteComponent';
+import withRouteComponent from '../withRouteComponent';
 
 class About extends React.Component {
   render() {

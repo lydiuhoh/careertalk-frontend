@@ -4,12 +4,13 @@ import Sidebar from 'react-sidebar';
 import withSizes from 'react-sizes';
 import styled from 'styled-components';
 
-import Header from '../../Components/Header';
-import Footer from '../../Components/Footer';
-import { BarMenu } from '../../Components/Menu';
+import Header from '../Components/Header';
+import Footer from '../Components/Footer';
+import { BarMenu } from '../Components/Menu';
 
 const mapSizesToProps = ({ width }) => ({
-  isSideBar: width < 700
+  isSideBar: width < 700,
+  isMobile: width < 480,
 });
 
 const Container = styled.div``;
@@ -53,7 +54,7 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
             >
               <Header isSideBar={this.props.isSideBar} toggleMenu={this.toggleMenu} />
               <Content>
-                <WrappedComponent />
+                <WrappedComponent {...this.props} />
               </Content>
               <Footer />
             </Sidebar>
