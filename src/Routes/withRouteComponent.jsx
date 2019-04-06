@@ -10,7 +10,7 @@ import { BarMenu } from '../Components/Menu';
 
 const mapSizesToProps = ({ width }) => ({
   isSideBar: width < 700,
-  isMobile: width < 480,
+  isMobile: width < 480
 });
 
 const Container = styled.div``;
@@ -45,7 +45,14 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
               onSetOpen={this.toggleMenu}
               pullRight
               styles={{
+                root: {
+                  overflow: 'initial'
+                },
+                content: {
+                  overflowY: 'initial'
+                },
                 sidebar: {
+                  position: 'fixed',
                   backgroundColor: 'white',
                   width: '50%',
                   zIndex: '10'

@@ -8,9 +8,6 @@ const MenuItem = styled.div`
 const MenuButton = styled.button`
   appearance: none;
   padding: 10px;
-  position: absolute;
-  top: 12px;
-  right: 10px;
   text-align: center;
   font-weight: 800;
   border: 0;
