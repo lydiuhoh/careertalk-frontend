@@ -2,9 +2,15 @@
 import styled from 'styled-components';
 
 const BaseWebContainer = styled.div`
-  padding: 0 200px;
+  padding: 0 100px;
   height: 100vh;
   margin-top: 100px;
 `;
 
-export { BaseWebContainer };
+const BaseMobileContainer = styled.div`
+  padding: 0 15px;
+  height: 100vh;
+  margin-top: 100px;
+`;
+
+export { BaseWebContainer, BaseMobileContainer };

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { BarMenu } from '../Components/Menu';
+import { BaseWebContainer, BaseMobileContainer } from '../Components/commons';
 
 const mapSizesToProps = ({ width }) => ({
   isSideBar: width < 700,
@@ -34,6 +35,9 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
       };
 
       render() {
+        const { isMobile } = this.props;
+        const BaseContainer = isMobile ? BaseMobileContainer : BaseWebContainer;
+
         return (
           <Container>
             <Helmet>
@@ -61,7 +65,7 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
             >
               <Header isSideBar={this.props.isSideBar} toggleMenu={this.toggleMenu} />
               <Content>
-                <WrappedComponent {...this.props} />
+                <WrappedComponent {...this.props} BaseContainer={BaseContainer} />
               </Content>
               <Footer />
             </Sidebar>

@@ -13,7 +13,7 @@ const Container = styled.header`
     fill: white;
   }
   padding: 10px;
-  transition: 0.3s ease-in-out;
+  transition: height 0.3s ease-in-out;
   height: ${props => (props.isScroll ? '50px' : '77px')};
   position: fixed;
   top: 0;

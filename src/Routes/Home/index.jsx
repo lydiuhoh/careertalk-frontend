@@ -1,13 +1,14 @@
 import React from 'react';
 import withRouteComponent from '../withRouteComponent';
-import { BaseWebContainer } from '../../Components/commons';
 
 class Home extends React.Component {
   render() {
+    const { BaseContainer } = this.props;
+
     return (
-      <BaseWebContainer>
+      <BaseContainer>
         <h1>Home</h1>
-      </BaseWebContainer>
+      </BaseContainer>
     );
   }
 }
