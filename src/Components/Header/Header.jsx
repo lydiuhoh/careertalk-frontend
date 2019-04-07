@@ -8,12 +8,17 @@ const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
   & svg {
     fill: white;
   }
-  margin-bottom: 30px;
   padding: 10px;
+  transition: 0.3s ease-in-out;
+  height: ${props => (props.isScroll ? '50px' : '77px')};
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 `;
 
 const HeaderColumn = styled.div`
@@ -45,30 +50,66 @@ const TitleField = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 55px;
+  width: 45px;
 `;
 
-const Header = props => (
-  <Container>
-    <HeaderColumn>
-      <LogoImage src={require('../../images/logo_transparent.png')} />
-      <TitleField>
-        <Title>CareerTalk</Title>
-        <SubTitle>Ignite your career</SubTitle>
-      </TitleField>
-    </HeaderColumn>
-    <HeaderColumn>
-      {props.isSideBar ? (
-        <MenuButton onClick={props.toggleMenu}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" />
-          </svg>
-        </MenuButton>
-      ) : (
-        <HeaderMenu />
-      )}
-    </HeaderColumn>
-  </Container>
-);
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.state = {
+      isScroll: false
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    const scrollHeight = window.scrollY;
+
+    if (scrollHeight > 50) {
+      this.setState({
+        isScroll: true
+      });
+    } else {
+      this.setState({
+        isScroll: false
+      });
+    }
+  }
+
+  render() {
+    const { isScroll } = this.state;
+
+    return (
+      <Container isScroll={isScroll}>
+        <HeaderColumn>
+          <LogoImage src={require('../../images/logo_transparent.png')} />
+          <TitleField>
+            <Title>CareerTalk</Title>
+            {!isScroll && <SubTitle>Ignite your career</SubTitle>}
+          </TitleField>
+        </HeaderColumn>
+        <HeaderColumn>
+          {this.props.isSideBar ? (
+            <MenuButton onClick={this.props.toggleMenu}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" />
+              </svg>
+            </MenuButton>
+          ) : (
+            <HeaderMenu />
+          )}
+        </HeaderColumn>
+      </Container>
+    );
+  }
+}
 
 export default Header;

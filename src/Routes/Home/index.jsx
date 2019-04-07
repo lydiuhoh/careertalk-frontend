@@ -1,9 +1,14 @@
 import React from 'react';
 import withRouteComponent from '../withRouteComponent';
+import { BaseWebContainer } from '../../Components/commons';
 
 class Home extends React.Component {
   render() {
-    return <h1>Home</h1>;
+    return (
+      <BaseWebContainer>
+        <h1>Home</h1>
+      </BaseWebContainer>
+    );
   }
 }
 
