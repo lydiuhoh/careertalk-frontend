@@ -4,6 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Home from '../../Routes/Home';
 import About from '../../Routes/About';
 import Fairs from '../../Routes/Fairs';
+import TestPage from '../../Routes/TestPage';
 
 const App = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const DefaultRoutes = () => (
     <Route path="/" exact component={Home} />
     <Route path="/about" component={About} />
     <Route path="/fairs" component={Fairs} />
+    <Route path="/test" component={TestPage} />
 
     {/* Add more routes */}
 

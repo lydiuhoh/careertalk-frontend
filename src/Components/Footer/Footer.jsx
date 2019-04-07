@@ -25,7 +25,7 @@ const Footer = () => (
       <FooterItem>About CareerTalk</FooterItem>
     </Link>
     <h3>|</h3>
-    <Link to="/">
+    <Link to="/test">
       <FooterItem>Get Involved</FooterItem>
     </Link>
   </Container>
