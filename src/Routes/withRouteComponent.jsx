@@ -7,17 +7,18 @@ import styled from 'styled-components';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { BarMenu } from '../Components/Menu';
-import { BaseWebContainer, BaseMobileContainer } from '../Components/commons';
 
 const mapSizesToProps = ({ width }) => ({
   isSideBar: width < 700,
-  isMobile: width < 480
 });
-
-const Container = styled.div``;
 
 const Content = styled.div`
   min-height: 80vh;
+  max-width: ${props => (props.isSideBar ? '' : '985px')};
+  flex-flow: nowrap;
+  padding-top: 100px;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
@@ -35,11 +36,8 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
       };
 
       render() {
-        const { isMobile } = this.props;
-        const BaseContainer = isMobile ? BaseMobileContainer : BaseWebContainer;
-
         return (
-          <Container>
+          <>
             <Helmet>
               <title>CareerTalk</title>
             </Helmet>
@@ -64,12 +62,12 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
               }}
             >
               <Header isSideBar={this.props.isSideBar} toggleMenu={this.toggleMenu} />
-              <Content>
-                <WrappedComponent {...this.props} BaseContainer={BaseContainer} />
+              <Content isSideBar={this.props.isSideBar}>
+                <WrappedComponent {...this.props} />
               </Content>
               <Footer />
             </Sidebar>
-          </Container>
+          </>
         );
       }
   }
