@@ -18,10 +18,10 @@ function getSize(size) {
 }
 
 const baseButton = css`
-  &:active {
-    transform: translateY(2px);
-  }
   cursor: pointer;
+  &:active {
+    transform: ${props => (props.disabled ? 'none' : 'translateY(2px)')};
+  }
 `;
 
 const HeartFill = styled(SolidHeart)`
@@ -37,16 +37,21 @@ const HeartEmpty = styled(FeatherHeart)`
 
 // Button Components //
 const HeartButton = props => (props.isLiked ? (
-  <HeartFill size={getSize(props.size)} />
+  <HeartFill size={getSize(props.size)} disabled={props.disabled} />
 ) : (
-  <HeartEmpty size={getSize(props.size)} />
+  <HeartEmpty size={getSize(props.size)} disabled={props.disabled} />
 ));
 
 
 // PropTypes //
+HeartButton.defaultProps = {
+  disabled: false,
+};
+
 HeartButton.propTypes = {
   size: PropTypes.string.isRequired,
-  isLiked: PropTypes.bool.isRequired
+  isLiked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export { HeartButton };

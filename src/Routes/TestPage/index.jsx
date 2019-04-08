@@ -16,11 +16,11 @@ class TestPage extends React.Component {
 const HeartButtonGroups = () => (
   <>
     <HeartButton isLiked size="sm" />
-    <HeartButton isLiked={false} size="sm" />
+    <HeartButton isLiked={false} size="sm" disabled />
     <HeartButton isLiked size="md" />
-    <HeartButton isLiked={false} size="md" />
+    <HeartButton isLiked={false} size="md" disabled />
     <HeartButton isLiked size="lg" />
-    <HeartButton isLiked={false} size="lg" />
+    <HeartButton isLiked={false} size="lg" disabled />
   </>
 );
 
