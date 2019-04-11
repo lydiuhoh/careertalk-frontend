@@ -14,7 +14,7 @@ const mapSizesToProps = ({ width }) => ({
 
 const Content = styled.div`
   min-height: 80vh;
-  max-width: ${props => (props.isSideBar ? '' : '985px')};
+  max-width: ${props => (props.isSideBar ? '' : '1200px')};
   flex-flow: nowrap;
   padding-top: 100px;
   width: 100%;
