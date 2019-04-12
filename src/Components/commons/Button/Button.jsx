@@ -25,7 +25,6 @@ const defaultProps = {
 
 const Container = styled.input`
   width: 100%;
-  width: 150px;
   background-color: ${props => props.theme.primaryColor};
   color: white;
   padding: 15px 0;

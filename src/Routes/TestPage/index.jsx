@@ -14,21 +14,56 @@ import {
   GridSix,
   GridSeven,
   GridEight,
-  Button
+  Button,
+  Form,
+  Input,
+  Divider
 } from '../../Components/commons';
 
 class TestPage extends React.Component {
+  state = {
+    name: ''
+  };
+
+  onSubmit = () => {
+    console.log(`Submit with name: ${this.state.name}`);
+  };
+
+  onInputChange = async event => {
+    const {
+      target: { name, value }
+    } = event;
+    this.setState({
+      [name]: value
+    });
+  };
+
   render() {
     return (
       <Container isSideBar={this.props.isSideBar}>
         <Title>Heart Buttons</Title>
         <HeartButtonGroups />
 
+        <Divider />
+
         <Title>Filter Buttons</Title>
         <FilterButtonGroups />
 
+        <Divider />
+
         <Title>Button</Title>
         <ButtonGroups />
+
+        <Divider />
+
+        <Title>Form & Input</Title>
+        <FormInputGroups
+          onSubmit={this.onSubmit}
+          onInputChange={this.onInputChange}
+          name={this.state.name}
+        />
+
+        <Divider />
 
         <Title>Grid Templates</Title>
         <GridGroups />
@@ -83,13 +118,12 @@ const FilterButtonGroups = () => (
   </TemplateContainer>
 );
 
-// ------------------------------------------------------------------------------------------ //
-
-
 // -------------------- Button with Grid example ------------------------------------------- //
 
-const ButtonGridExample = styled(GridTwo)`
+const ButtonGridExample = styled(GridSeven)`
   grid-auto-rows: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  place-items: center;
 `;
 
 const ExtendedButton = styled(Button)`
@@ -97,17 +131,42 @@ const ExtendedButton = styled(Button)`
 `;
 
 const ButtonGroups = () => (
-  <TemplateContainer>
-    <ButtonGridExample>
-      <Button value="Test Button" onClick={() => console.log('Button click!')} />
-      <ExtendedButton onClick={() => alert('Hey!!')} />
-      <Button value="Disabled" disabled />
-    </ButtonGridExample>
-  </TemplateContainer>
+  <ButtonGridExample>
+    <Button value="Test Button" onClick={() => console.log('Button click!')} />
+    <ExtendedButton onClick={() => alert('Hey!!')} /> {/*  eslint-disable-line */}
+    <Button value="Disabled" disabled />
+  </ButtonGridExample>
 );
 
-// ------------------------------------------------------------------------------------------ //
+// -------------------- Form & Input example ----------------------------------------------- //
 
+const FormInputGridExample = styled(GridEight)`
+  grid-template-columns: 100%;
+  grid-template-rows: 50px;
+  grid-auto-rows: 50px;
+  place-items: center;
+`;
+
+const FormSubmitButton = styled(Button)`
+  width: 100px;
+`;
+
+const FormInputGroups = props => (
+  <TemplateContainer>
+    <Form submitFn={props.onSubmit}>
+      <FormInputGridExample>
+        <Input
+          placeholder="Name"
+          type="text"
+          onChange={props.onInputChange}
+          value={props.name}
+          name="name"
+        />
+        <FormSubmitButton onClick={null} value="Submit" />
+      </FormInputGridExample>
+    </Form>
+  </TemplateContainer>
+);
 
 // -------------------- Grid Template example ----------------------------------------------- //
 
