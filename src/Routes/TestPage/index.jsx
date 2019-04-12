@@ -13,7 +13,8 @@ import {
   GridFour,
   GridSix,
   GridSeven,
-  GridEight
+  GridEight,
+  Button
 } from '../../Components/commons';
 
 class TestPage extends React.Component {
@@ -22,8 +23,13 @@ class TestPage extends React.Component {
       <Container isSideBar={this.props.isSideBar}>
         <Title>Heart Buttons</Title>
         <HeartButtonGroups />
+
         <Title>Filter Buttons</Title>
         <FilterButtonGroups />
+
+        <Title>Button</Title>
+        <ButtonGroups />
+
         <Title>Grid Templates</Title>
         <GridGroups />
       </Container>
@@ -56,6 +62,8 @@ const GridContainer = styled.div`
   margin-bottom: 15px;
 `;
 
+// -------------------- Icon Buttons example ------------------------------------------------- //
+
 const HeartButtonGroups = () => (
   <TemplateContainer>
     <HeartButton isLiked size="sm" />
@@ -74,6 +82,34 @@ const FilterButtonGroups = () => (
     <FilterButton disabled />
   </TemplateContainer>
 );
+
+// ------------------------------------------------------------------------------------------ //
+
+
+// -------------------- Button with Grid example ------------------------------------------- //
+
+const ButtonGridExample = styled(GridTwo)`
+  grid-auto-rows: 50px;
+`;
+
+const ExtendedButton = styled(Button)`
+  background-color: #f1c40f;
+`;
+
+const ButtonGroups = () => (
+  <TemplateContainer>
+    <ButtonGridExample>
+      <Button value="Test Button" onClick={() => console.log('Button click!')} />
+      <ExtendedButton onClick={() => alert('Hey!!')} />
+      <Button value="Disabled" disabled />
+    </ButtonGridExample>
+  </TemplateContainer>
+);
+
+// ------------------------------------------------------------------------------------------ //
+
+
+// -------------------- Grid Template example ----------------------------------------------- //
 
 const GridGroups = () => (
   <>
@@ -159,5 +195,7 @@ const GridGroups = () => (
     </GridContainer>
   </>
 );
+
+// ------------------------------------------------------------------------------------------ //
 
 export default withRouteComponent(TestPage);
