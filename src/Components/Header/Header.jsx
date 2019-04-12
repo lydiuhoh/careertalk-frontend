@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { HeaderMenu, MenuButton } from '../Menu';
 
 const Container = styled.header`
-  background-color: #0d1d2d;
+  background-color: ${props => props.theme.primaryColor};
   color: white;
   display: flex;
   justify-content: space-between;
