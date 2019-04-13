@@ -25,3 +25,10 @@ export const fadeIn = keyframes`
 export const shadowBox = css`
   box-shadow: 0px 4px 6px rgba(50, 50, 93, 0.11), 0px 1px 3px ${props => props.theme.greyColor};
 `;
+
+export const onHoverEffect = css`
+  &:hover {
+    box-shadow: 0px 2px 3px 1px rgba(50, 50, 93, 0.55);
+    transition: 0.2s box-shadow;
+  }
+`;
