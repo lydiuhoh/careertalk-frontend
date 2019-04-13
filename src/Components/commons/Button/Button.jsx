@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
 
-import { onActive } from '../styles';
+import { onActive, shadowBox } from '../styles';
 
 const propTypes = exact({
   /** The title of the button */
@@ -43,6 +43,7 @@ const Container = styled.input`
     cursor: not-allowed;
   }
   ${onActive}
+  ${shadowBox}
 `;
 
 // NOTE: className must be declared to identify the extended styled component

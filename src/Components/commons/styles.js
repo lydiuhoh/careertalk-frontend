@@ -21,3 +21,7 @@ export const fadeIn = keyframes`
     opacity: 1;
   }
 `;
+
+export const shadowBox = css`
+  box-shadow: 0px 4px 6px rgba(50, 50, 93, 0.11), 0px 1px 3px ${props => props.theme.greyColor};
+`;

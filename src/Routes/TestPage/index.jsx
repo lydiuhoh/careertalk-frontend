@@ -19,7 +19,8 @@ import {
   Input,
   Divider,
   Loading,
-  LoadingSpinner
+  LoadingSpinner,
+  BaseCard
 } from '../../Components/commons';
 
 class TestPage extends React.Component {
@@ -71,6 +72,9 @@ class TestPage extends React.Component {
         <SpinnerGroups />
 
         <Divider />
+
+        <Title>Card</Title>
+        <CardGroups />
 
         <Title>Grid Templates</Title>
         <GridGroups />
@@ -186,6 +190,21 @@ const SpinnerGroups = () => (
       <LoadingSpinner />
     </div>
   </ButtonGridExample>
+);
+
+// -------------------- Card example ----------------------------------------------- //
+
+const CardGroups = () => (
+  <GridContainer>
+    <GridSix>
+      <BaseCard />
+      <BaseCard />
+      <BaseCard />
+      <BaseCard />
+      <BaseCard />
+      <BaseCard>Hello</BaseCard>
+    </GridSix>
+  </GridContainer>
 );
 
 // -------------------- Grid Template example ----------------------------------------------- //
