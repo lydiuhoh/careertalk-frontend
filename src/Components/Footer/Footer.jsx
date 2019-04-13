@@ -7,6 +7,8 @@ const Container = styled.footer`
   justify-content: center;
   align-items: center;
   padding: 10px;
+  padding-top: 30px;
+  padding-bottom: 50px;
 `;
 
 const FooterItem = styled.h6`
