@@ -123,7 +123,7 @@ const FilterButtonGroups = () => (
 const ButtonGridExample = styled(GridSeven)`
   grid-auto-rows: 50px;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  place-items: center;
+  place-items: center center;
 `;
 
 const ExtendedButton = styled(Button)`
@@ -144,7 +144,7 @@ const FormInputGridExample = styled(GridEight)`
   grid-template-columns: 100%;
   grid-template-rows: 50px;
   grid-auto-rows: 50px;
-  place-items: center;
+  place-items: center center;
 `;
 
 const FormSubmitButton = styled(Button)`
