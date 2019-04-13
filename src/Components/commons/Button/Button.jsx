@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
 
-import { onActive, shadowBox } from '../styles';
+import { onActive, shadowBox, onHoverEffect } from '../styles';
 
 const propTypes = exact({
   /** The title of the button */
@@ -42,8 +42,9 @@ const Container = styled.input`
     opacity: 0.8;
     cursor: not-allowed;
   }
-  ${onActive}
-  ${shadowBox}
+  ${onActive};
+  ${shadowBox};
+  ${props => !props.disabled && onHoverEffect};
 `;
 
 // NOTE: className must be declared to identify the extended styled component

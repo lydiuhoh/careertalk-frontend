@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { shadowBox } from './styles';
+import { shadowBox, onHoverEffect } from './styles';
 
 const TestBox = styled.div`
   :nth-child(even) {
@@ -19,6 +19,7 @@ const BaseCard = styled.div`
   padding: 20px;
   color: black;
   ${shadowBox};
+  ${onHoverEffect};
 `;
 
 export { TestBox, BaseCard };
