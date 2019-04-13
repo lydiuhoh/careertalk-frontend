@@ -17,7 +17,8 @@ import {
   Button,
   Form,
   Input,
-  Divider
+  Divider,
+  Loading
 } from '../../Components/commons';
 
 class TestPage extends React.Component {
@@ -62,6 +63,12 @@ class TestPage extends React.Component {
           onInputChange={this.onInputChange}
           name={this.state.name}
         />
+
+        <Divider />
+
+        <TemplateContainer>
+          <Loading />
+        </TemplateContainer>
 
         <Divider />
 
