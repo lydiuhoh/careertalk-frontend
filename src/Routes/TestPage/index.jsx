@@ -18,7 +18,8 @@ import {
   Form,
   Input,
   Divider,
-  Loading
+  Loading,
+  LoadingSpinner
 } from '../../Components/commons';
 
 class TestPage extends React.Component {
@@ -66,9 +67,8 @@ class TestPage extends React.Component {
 
         <Divider />
 
-        <TemplateContainer>
-          <Loading />
-        </TemplateContainer>
+        <Title>Spinner</Title>
+        <SpinnerGroups />
 
         <Divider />
 
@@ -173,6 +173,19 @@ const FormInputGroups = props => (
       </FormInputGridExample>
     </Form>
   </TemplateContainer>
+);
+
+// -------------------- Spinner example ----------------------------------------------- //
+
+const SpinnerGroups = () => (
+  <ButtonGridExample>
+    <div>
+      <Loading />
+    </div>
+    <div>
+      <LoadingSpinner />
+    </div>
+  </ButtonGridExample>
 );
 
 // -------------------- Grid Template example ----------------------------------------------- //

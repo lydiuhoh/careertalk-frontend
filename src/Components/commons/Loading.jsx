@@ -87,4 +87,22 @@ const Loading = () => (
   </Container>
 );
 
-export { Loading };
+const SPIN = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const LoadingSpinnerContainer = styled.img`
+  height: 22px;
+  animation: ${SPIN} 1.2s steps(12) infinite;
+`;
+
+const LoadingSpinner = () => (
+  <LoadingSpinnerContainer src={require('../../images/loading.png')} alt="loading" />
+);
+
+export { Loading, LoadingSpinner };
