@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import withRouteComponent from '../withRouteComponent';
+import withRouteComponent from './withRouteComponent';
 import {
   Container,
   HeartButton,
@@ -21,67 +21,60 @@ import {
   Loading,
   LoadingSpinner,
   BaseCard
-} from '../../Components/commons';
+} from '../Components/commons';
 
-class TestPage extends React.Component {
-  state = {
-    name: ''
+const Template = props => {
+  // Hook Example
+  const [value, setValue] = useState('');
+
+  const updateValue = event => {
+    const { target: { value } } = event;
+    setValue(value);
   };
 
-  onSubmit = () => {
-    console.log(`Submit with name: ${this.state.name}`);
+  const onSubmit = () => {
+    console.log(`Submit name: ${value}`);
   };
 
-  onInputChange = async event => {
-    const {
-      target: { name, value }
-    } = event;
-    this.setState({
-      [name]: value
-    });
-  };
+  return (
+    <Container isSideBar={props.isSideBar}>
+      <Title>Heart Buttons</Title>
+      <HeartButtonGroups />
 
-  render() {
-    return (
-      <Container isSideBar={this.props.isSideBar}>
-        <Title>Heart Buttons</Title>
-        <HeartButtonGroups />
+      <Divider />
 
-        <Divider />
+      <Title>Filter Buttons</Title>
+      <FilterButtonGroups />
 
-        <Title>Filter Buttons</Title>
-        <FilterButtonGroups />
+      <Divider />
 
-        <Divider />
+      <Title>Button</Title>
+      <ButtonGroups />
 
-        <Title>Button</Title>
-        <ButtonGroups />
+      <Divider />
 
-        <Divider />
+      <Title>Form & Input</Title>
+      <FormInputGroups
+        onSubmit={onSubmit}
+        onInputChange={updateValue}
+        name={value}
+      />
 
-        <Title>Form & Input</Title>
-        <FormInputGroups
-          onSubmit={this.onSubmit}
-          onInputChange={this.onInputChange}
-          name={this.state.name}
-        />
+      <Divider />
 
-        <Divider />
+      <Title>Spinner</Title>
+      <SpinnerGroups />
 
-        <Title>Spinner</Title>
-        <SpinnerGroups />
+      <Divider />
 
-        <Divider />
+      <Title>Card</Title>
+      <CardGroups />
 
-        <Title>Card</Title>
-        <CardGroups />
-
-        <Title>Grid Templates</Title>
-        <GridGroups />
-      </Container>
-    );
-  }
-}
+      <Title>Grid Templates</Title>
+      <GridGroups />
+    </Container>
+  );
+};
 
 // Give styles to <h1>
 const Title = styled.h1`
@@ -296,4 +289,4 @@ const GridGroups = () => (
 
 // ------------------------------------------------------------------------------------------ //
 
-export default withRouteComponent(TestPage);
+export default withRouteComponent(Template);

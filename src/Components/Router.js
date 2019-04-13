@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Home from '../Routes/Home';
 import About from '../Routes/About';
 import Fairs from '../Routes/Fairs';
-import TestPage from '../Routes/TestPage';
+import Template from '../Routes/Template';
 
 const Router = () => (
   <BrowserRouter>
@@ -12,7 +12,7 @@ const Router = () => (
       <Route path="/" exact component={Home} />
       <Route path="/about" component={About} />
       <Route path="/fairs" component={Fairs} />
-      <Route path="/test" component={TestPage} />
+      <Route path="/test" component={Template} />
 
       {/* Add more routes */}
 
