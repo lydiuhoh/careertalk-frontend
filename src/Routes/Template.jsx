@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { gql } from 'apollo-boost';
+import { useQuery } from 'react-apollo-hooks';
 
 import withRouteComponent from './withRouteComponent';
 import {
@@ -54,6 +56,13 @@ const Template = props => {
 
       <Title>Card</Title>
       <CardGroups />
+
+      <Divider />
+
+      <Title>Graphql Query</Title>
+      <GQLQuery />
+
+      <Divider />
 
       <Title>Grid Templates</Title>
       <GridGroups />
@@ -186,6 +195,38 @@ const CardGroups = () => (
     </GridSix>
   </GridContainer>
 );
+
+// -------------------- GraphQL Query example ----------------------------------------------- //
+
+const FAIRS = gql`
+  {
+    getFair {
+      name
+      address
+      city
+      zipcode
+    }
+  }
+`;
+
+const GQLQuery = () => {
+  const { data: { getFair } } = useQuery(FAIRS);
+
+  return (
+    <TemplateContainer>
+      {getFair ? (
+        <div style={{ margin: '30px 0' }}>
+          <SubTitle>Name: {`${getFair[0].name}`}</SubTitle>
+          <SubTitle>Address: {`${getFair[0].address}`}</SubTitle>
+          <SubTitle>City: {`${getFair[0].city}`}</SubTitle>
+          <SubTitle>Zipcode: {`${getFair[0].zipcode}`}</SubTitle>
+        </div>
+      ) : (
+        <LoadingSpinner />
+      )}
+    </TemplateContainer>
+  );
+};
 
 // -------------------- Grid Template example ----------------------------------------------- //
 
