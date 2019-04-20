@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import withRouteComponent from './withRouteComponent';
@@ -22,20 +22,9 @@ import {
   LoadingSpinner,
   BaseCard
 } from '../Components/commons';
+import useInput from '../Hooks/useInput';
 
 const Template = props => {
-  // Hook Example
-  const [value, setValue] = useState('');
-
-  const updateValue = event => {
-    const { target: { value } } = event;
-    setValue(value);
-  };
-
-  const onSubmit = () => {
-    console.log(`Submit name: ${value}`);
-  };
-
   return (
     <Container isSideBar={props.isSideBar}>
       <Title>Heart Buttons</Title>
@@ -54,11 +43,7 @@ const Template = props => {
       <Divider />
 
       <Title>Form & Input</Title>
-      <FormInputGroups
-        onSubmit={onSubmit}
-        onInputChange={updateValue}
-        name={value}
-      />
+      <FormInputGroups />
 
       <Divider />
 
@@ -155,22 +140,24 @@ const FormSubmitButton = styled(Button)`
   width: 100px;
 `;
 
-const FormInputGroups = props => (
-  <TemplateContainer>
-    <Form submitFn={props.onSubmit}>
-      <FormInputGridExample>
-        <Input
-          placeholder="Name"
-          type="text"
-          onChange={props.onInputChange}
-          value={props.name}
-          name="name"
-        />
-        <FormSubmitButton onClick={null} value="Submit" />
-      </FormInputGridExample>
-    </Form>
-  </TemplateContainer>
-);
+const FormInputGroups = () => {
+  // React Hooks example
+  const templateValue = useInput('');
+  const onSubmit = () => {
+    console.log(`Submit name: ${templateValue.value}`);
+  };
+
+  return (
+    <TemplateContainer>
+      <Form submitFn={onSubmit}>
+        <FormInputGridExample>
+          <Input placeholder="Name" {...templateValue} />
+          <FormSubmitButton onClick={null} value="Submit" />
+        </FormInputGridExample>
+      </Form>
+    </TemplateContainer>
+  );
+};
 
 // -------------------- Spinner example ----------------------------------------------- //
 
