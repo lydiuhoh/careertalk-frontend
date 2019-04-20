@@ -32,3 +32,15 @@ export const onHoverEffect = css`
     transition: 0.2s box-shadow;
   }
 `;
+
+export const onLoading = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
