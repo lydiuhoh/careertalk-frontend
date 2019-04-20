@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import { onLoading } from './styles';
+
 const LOADING = keyframes`
   0% {
     transform: scale(0.7);
@@ -105,4 +107,13 @@ const LoadingSpinner = () => (
   <LoadingSpinnerContainer src={require('../../images/loading.png')} alt="loading" />
 );
 
-export { Loading, LoadingSpinner };
+const LoadingLogoContainer = styled.img`
+  height: 55px;
+  animation: ${onLoading} 1.1s linear infinite;
+`;
+
+const LoadingLogo = () => (
+  <LoadingLogoContainer src={require('../../images/logo_transparent.png')} alt="loading" />
+);
+
+export { Loading, LoadingSpinner, LoadingLogo };

@@ -22,6 +22,7 @@ import {
   Divider,
   Loading,
   LoadingSpinner,
+  LoadingLogo,
   BaseCard
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
@@ -49,8 +50,8 @@ const Template = props => {
 
       <Divider />
 
-      <Title>Spinner</Title>
-      <SpinnerGroups />
+      <Title>Loader</Title>
+      <LoaderGroups />
 
       <Divider />
 
@@ -170,10 +171,13 @@ const FormInputGroups = () => {
 
 // -------------------- Spinner example ----------------------------------------------- //
 
-const SpinnerGroups = () => (
+const LoaderGroups = () => (
   <ButtonGridExample>
     <div>
       <Loading />
+    </div>
+    <div>
+      <LoadingLogo />
     </div>
     <div>
       <LoadingSpinner />
