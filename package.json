@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "graphql": "^14.2.1",
     "prop-types": "^15.7.2",
     "prop-types-exact": "^1.2.0",
     "react": "^16.8.4",
+    "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.4",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^5.0.0",
