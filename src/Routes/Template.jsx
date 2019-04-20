@@ -210,11 +210,11 @@ const FAIRS = gql`
 `;
 
 const GQLQuery = () => {
-  const { data: { getFair } } = useQuery(FAIRS);
+  const { data: { getFair }, loading } = useQuery(FAIRS);
 
   return (
     <TemplateContainer>
-      {getFair ? (
+      {!loading ? (
         <div style={{ margin: '30px 0' }}>
           <SubTitle>Name: {`${getFair[0].name}`}</SubTitle>
           <SubTitle>Address: {`${getFair[0].address}`}</SubTitle>
