@@ -214,16 +214,16 @@ const FAIRS = gql`
 `;
 
 const GQLQuery = () => {
-  const { data: { getFair }, loading } = useQuery(FAIRS);
+  const { data: { getFair: fairs }, loading } = useQuery(FAIRS);
 
   return (
     <TemplateContainer>
       {!loading ? (
         <div style={{ margin: '30px 0' }}>
-          <SubTitle>Name: {`${getFair[0].name}`}</SubTitle>
-          <SubTitle>Address: {`${getFair[0].address}`}</SubTitle>
-          <SubTitle>City: {`${getFair[0].city}`}</SubTitle>
-          <SubTitle>Zipcode: {`${getFair[0].zipcode}`}</SubTitle>
+          <SubTitle>Name: {`${fairs[0].name}`}</SubTitle>
+          <SubTitle>Address: {`${fairs[0].address}`}</SubTitle>
+          <SubTitle>City: {`${fairs[0].city}`}</SubTitle>
+          <SubTitle>Zipcode: {`${fairs[0].zipcode}`}</SubTitle>
         </div>
       ) : (
         <LoadingSpinner />
