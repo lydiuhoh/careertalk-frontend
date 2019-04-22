@@ -28,10 +28,34 @@ import {
   BaseCard
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
+import EmployerItem from '../Components/EmployerItem';
+
+const EmployerObj = {
+  careerfair_id: 1,
+  degree_requirements: ['BS', 'MS'],
+  hiring_majors: ['CS'],
+  hiring_types: ['INT', 'FT'],
+  tables: [1, 2],
+  visa_support: 'no',
+  employer: {
+    company_url: 'actico.com',
+    description: null,
+    found_year: null,
+    hq_city: null,
+    id: 10,
+    logo_url: 'default_employer.png',
+    name: 'ACTICO'
+  }
+};
 
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
+      <Title>Employer</Title>
+      <TemplateContainer>
+        <EmployerItem {...EmployerObj} />
+      </TemplateContainer>
+
       <Title>Heart Buttons</Title>
       <HeartButtonGroups />
 
