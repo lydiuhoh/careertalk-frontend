@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 import React from 'react';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
@@ -214,11 +216,11 @@ const FAIRS = gql`
 `;
 
 const GQLQuery = () => {
-  const { data: { getFair: fairs }, loading } = useQuery(FAIRS);
+  // const { data: { getFair: fairs }, loading } = useQuery(FAIRS);
 
   return (
     <TemplateContainer>
-      {!loading ? (
+      {/* {!loading ? (
         <div style={{ margin: '30px 0' }}>
           <SubTitle>Name: {`${fairs[0].name}`}</SubTitle>
           <SubTitle>Address: {`${fairs[0].address}`}</SubTitle>
@@ -227,7 +229,8 @@ const GQLQuery = () => {
         </div>
       ) : (
         <LoadingSpinner />
-      )}
+      )} */}
+      <Title>Currently commented</Title>
     </TemplateContainer>
   );
 };

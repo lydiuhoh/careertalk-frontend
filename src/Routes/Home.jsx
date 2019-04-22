@@ -9,6 +9,7 @@ const googleClientId = AppConfig.GOOGLE_CLIENT_ID;
 
 const responseGoogle = response => {
   console.log(response.tokenId);
+  console.log(response.googleId);
 };
 
 const Home = props => (
