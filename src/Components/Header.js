@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { HeaderMenu, MenuButton } from '../Menu';
+
+import { HamburgerMenu } from './Icons';
+import { HeaderMenu, MenuButton } from './Menu';
 
 const Container = styled.header`
   background-color: ${props => props.theme.primaryColor};
@@ -90,7 +92,7 @@ class Header extends React.Component {
     return (
       <Container isScroll={isScroll}>
         <HeaderColumn>
-          <LogoImage src={require('../../images/logo_transparent.png')} />
+          <LogoImage src={require('../images/logo_transparent.png')} />
           <TitleField>
             <Title>CareerTalk</Title>
             {!isScroll && <SubTitle>Ignite your career</SubTitle>}
@@ -99,9 +101,7 @@ class Header extends React.Component {
         <HeaderColumn>
           {this.props.isSideBar ? (
             <MenuButton onClick={this.props.toggleMenu}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" />
-              </svg>
+              <HamburgerMenu />
             </MenuButton>
           ) : (
             <HeaderMenu />

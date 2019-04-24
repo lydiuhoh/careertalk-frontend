@@ -38,5 +38,4 @@ const BarMenu = () => (
   </>
 );
 
-
 export { HeaderMenu, BarMenu, MenuButton };

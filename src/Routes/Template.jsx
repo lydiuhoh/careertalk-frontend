@@ -8,8 +8,6 @@ import { useQuery } from 'react-apollo-hooks';
 import withRouteComponent from './withRouteComponent';
 import {
   Container,
-  HeartButton,
-  FilterButton,
   TestBox,
   GridOne,
   GridTwo,
@@ -29,43 +27,29 @@ import {
   LogoImage
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
-import EmployerItem from '../Components/EmployerItem';
 
-const EmployerObj = {
-  careerfair_id: 1,
-  degree_requirements: ['BS', 'MS'],
-  hiring_majors: ['CS'],
-  hiring_types: ['INT', 'FT'],
-  tables: [1, 2],
-  visa_support: 'no',
-  employer: {
-    company_url: 'actico.com',
-    description: null,
-    found_year: null,
-    hq_city: null,
-    id: 10,
-    logo_url: 'default_employer.png',
-    name: 'ACTICO'
-  }
-};
+// const EmployerObj = {
+//   careerfair_id: 1,
+//   degree_requirements: ['BS', 'MS'],
+//   hiring_majors: ['CS'],
+//   hiring_types: ['INT', 'FT'],
+//   tables: [1, 2],
+//   visa_support: 'no',
+//   employer: {
+//     company_url: 'actico.com',
+//     description: null,
+//     found_year: null,
+//     hq_city: null,
+//     id: 10,
+//     logo_url: 'default_employer.png',
+//     name: 'ACTICO'
+//   }
+// };
 
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
       <LogoImage />
-
-      <Title>Employer</Title>
-      <TemplateContainer>
-        <EmployerItem {...EmployerObj} />
-      </TemplateContainer>
-
-      <Title>Heart Buttons</Title>
-      <HeartButtonGroups />
-
-      <Divider />
-
-      <Title>Filter Buttons</Title>
-      <FilterButtonGroups />
 
       <Divider />
 
@@ -125,27 +109,6 @@ const GridContainer = styled.div`
   margin-bottom: 15px;
 `;
 
-// -------------------- Icon Buttons example ------------------------------------------------- //
-
-const HeartButtonGroups = () => (
-  <TemplateContainer>
-    <HeartButton isLiked size="sm" />
-    <HeartButton disabled />
-    <HeartButton isLiked size="md" />
-    <HeartButton size="md" disabled />
-    <HeartButton isLiked size="lg" />
-    <HeartButton size="lg" />
-  </TemplateContainer>
-);
-
-const FilterButtonGroups = () => (
-  <TemplateContainer>
-    <FilterButton isFilter />
-    <FilterButton />
-    <FilterButton disabled />
-  </TemplateContainer>
-);
-
 // -------------------- Button with Grid example ------------------------------------------- //
 
 const ButtonGridExample = styled(GridSeven)`
@@ -190,7 +153,7 @@ const FormInputGroups = () => {
     <TemplateContainer>
       <Form submitFn={onSubmit}>
         <FormInputGridExample>
-          <Input placeholder="Name" {...templateValue} />
+          <Input placeholder="Name" value={templateValue.value} onChange={templateValue.onChange} />
           <FormSubmitButton onClick={null} value="Submit" />
         </FormInputGridExample>
       </Form>
