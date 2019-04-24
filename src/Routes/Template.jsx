@@ -25,7 +25,8 @@ import {
   Loading,
   LoadingSpinner,
   LoadingLogo,
-  BaseCard
+  BaseCard,
+  LogoImage
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
 import EmployerItem from '../Components/EmployerItem';
@@ -51,6 +52,8 @@ const EmployerObj = {
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
+      <LogoImage />
+
       <Title>Employer</Title>
       <TemplateContainer>
         <EmployerItem {...EmployerObj} />
