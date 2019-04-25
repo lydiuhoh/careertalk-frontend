@@ -1,0 +1,7 @@
+type Token {
+  token: String!
+}
+
+type Mutation {
+  userLogin(tokenId: String!, googleId: String!): Token!
+}

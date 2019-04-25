@@ -1,0 +1,15 @@
+type Fair {
+  address: String!
+  city: String!
+  date: String!
+  description: String!
+  end_time: String!
+  id: Int!
+  location: String!
+  map_url: String!
+  name: String!
+  num_of_employers: Int!
+  organization_id: Int!
+  start_time: String!
+  zipcode: String!
+}
