@@ -3,16 +3,16 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Home from '../Routes/Home';
 import About from '../Routes/About';
-import Fairs from '../Routes/Fairs';
 import Template from '../Routes/Template';
+import GetInvolved from '../Routes/GetInvolved';
 
 const Router = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/about" component={About} />
-      <Route path="/fairs" component={Fairs} />
-      <Route path="/test" component={Template} />
+      <Route path="/get-involved" component={GetInvolved} />
+      <Route path="/template" component={Template} />
 
       {/* Add more routes */}
 

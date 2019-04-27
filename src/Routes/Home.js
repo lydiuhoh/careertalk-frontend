@@ -5,7 +5,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 
 import withRouteComponent from './withRouteComponent';
-import { Container } from '../Components/commons';
+import { Container, Button } from '../Components/commons';
 import AppConfig from '../config.json';
 
 const googleClientId = AppConfig.GOOGLE_CLIENT_ID;
@@ -24,6 +24,11 @@ const HomeContainer = styled.div`
   flex-direction: column;
   margin: 0 auto;
   padding: 15px;
+`;
+
+const TemplateButton = styled(Button)`
+  width: 300px;
+  margin: 30px 0;
 `;
 
 // ---------------------------------------------------------------------------- //
@@ -101,6 +106,8 @@ const Home = props => {
             cookiePolicy="single_host_origin"
           />
         )}
+
+        <TemplateButton value="Templates" onClick={() => props.history.push('template')} />
       </HomeContainer>
     </Container>
   );
