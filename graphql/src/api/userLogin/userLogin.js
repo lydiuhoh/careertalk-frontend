@@ -37,12 +37,12 @@ export default {
           throw Error('Checking existing user failed.. try again please');
         }
         */
-      } catch (error) {
-        throw Error(error.message);
+      } catch {
+        throw Error('Invalid Google Token. Please login again.');
       }
 
       // Or we can use user.id
-      return { token: jwt.sign({ googleId }, process.env.JWT_SECRET) };
+      return jwt.sign({ googleId }, process.env.JWT_SECRET);
     }
   }
 };

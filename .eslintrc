@@ -24,7 +24,7 @@
     "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,
     "no-underscore-dangle": 0,
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^__" }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^__|^_" }],
     "react/jsx-filename-extension": 0,
     "react/prefer-stateless-function": 0,
     "no-use-before-define": 0,
