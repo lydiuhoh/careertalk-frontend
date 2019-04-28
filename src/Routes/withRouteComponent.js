@@ -75,7 +75,7 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
                 <ErrorFallback />
               ) : (
                 <>
-                  <Header isSideBar={this.props.isSideBar} />
+                  <Header isSideBar={this.props.isSideBar} toggleMenu={this.toggleMenu} />
                   <Content isSideBar={this.props.isSideBar}>
                     <WrappedComponent {...this.props} />
                   </Content>
