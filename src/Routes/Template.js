@@ -27,6 +27,18 @@ import {
   LogoImage
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
+import FairCard from '../Components/FairCard';
+
+const FairObj = {
+  organization_id: 1,
+  name: 'D-1 UIC Computer Science Career Fair',
+  address: '725 West Roosevelt Road',
+  num_of_employers: 102,
+  date: '2018/09/18',
+  start_time: '12:00 PM',
+  end_time: '4:00 PM',
+  location: 'UIC Forum'
+};
 
 // const EmployerObj = {
 //   careerfair_id: 1,
@@ -49,7 +61,11 @@ import useInput from '../Hooks/useInput';
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
-      <LogoImage />
+
+      <Title>Fair Card</Title>
+      <TemplateContainer>
+        <FairCard fair={FairObj} />
+      </TemplateContainer>
 
       <Divider />
 
