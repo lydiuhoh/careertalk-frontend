@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { BarMenu } from '../Components/Menu';
+import ErrorFallback from './ErrorFallback';
 
 const mapSizesToProps = ({ width }) => ({
   isSideBar: width < 700,
@@ -24,7 +25,8 @@ const Content = styled.div`
 const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
   class RouteComponent extends React.Component {
       state = {
-        isMenuOpen: false
+        isMenuOpen: false,
+        hasError: false,
       };
 
       toggleMenu = () => {
@@ -35,7 +37,15 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
         });
       };
 
+      componentDidCatch = () => {
+        this.setState({
+          hasError: true
+        });
+      };
+
       render() {
+        const { hasError } = this.state;
+
         return (
           <>
             <Helmet>
@@ -61,11 +71,17 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
                 }
               }}
             >
-              <Header isSideBar={this.props.isSideBar} toggleMenu={this.toggleMenu} />
-              <Content isSideBar={this.props.isSideBar}>
-                <WrappedComponent {...this.props} />
-              </Content>
-              <Footer />
+              {hasError ? (
+                <ErrorFallback />
+              ) : (
+                <>
+                  <Header isSideBar={this.props.isSideBar} />
+                  <Content isSideBar={this.props.isSideBar}>
+                    <WrappedComponent {...this.props} />
+                  </Content>
+                  <Footer />
+                </>
+              )}
             </Sidebar>
           </>
         );
