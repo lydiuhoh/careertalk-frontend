@@ -28,6 +28,7 @@ import {
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
 import FairCard from '../Components/FairCard';
+import EmployerCard from '../Components/EmployerCard';
 
 const FairObj = {
   organization_id: 1,
@@ -40,27 +41,33 @@ const FairObj = {
   location: 'UIC Forum'
 };
 
-// const EmployerObj = {
-//   careerfair_id: 1,
-//   degree_requirements: ['BS', 'MS'],
-//   hiring_majors: ['CS'],
-//   hiring_types: ['INT', 'FT'],
-//   tables: [1, 2],
-//   visa_support: 'no',
-//   employer: {
-//     company_url: 'actico.com',
-//     description: null,
-//     found_year: null,
-//     hq_city: null,
-//     id: 10,
-//     logo_url: 'default_employer.png',
-//     name: 'ACTICO'
-//   }
-// };
+const EmployerObj = {
+  careerfair_id: 1,
+  degree_requirements: ['BS', 'MS'],
+  hiring_majors: ['CS'],
+  hiring_types: ['INT', 'FT'],
+  tables: [1, 2],
+  visa_support: 'yes',
+  employer: {
+    company_url: 'actico.com',
+    industry: 'Information Technology and Services',
+    description:
+      'ACTICO is a leading international provider of software solutions and technologies for decision management.',
+    found_year: null,
+    hq_city: null,
+    id: 10,
+    logo_url: 'default_employer.png',
+    name: 'ACTICO'
+  }
+};
 
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
+      <Title>Employer Card</Title>
+      <EmployerGroups />
+
+      <Divider />
 
       <Title>Fair Card</Title>
       <TemplateContainer>
@@ -97,6 +104,35 @@ const Template = props => {
       <Title>Grid Templates</Title>
       <GridGroups />
     </Container>
+  );
+};
+
+const EmployerGrid = styled(GridSix)`
+  grid-auto-rows: minmax(150px, auto);
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+`;
+
+const EmployerGridSmall = styled(GridSeven)`
+  margin-top: 15px;
+  grid-auto-rows: minmax(80px, auto);
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+`;
+
+const EmployerGroups = () => {
+  return (
+    <GridContainer>
+      <EmployerGrid>
+        <EmployerCard {...EmployerObj} isLiked />
+        <EmployerCard {...EmployerObj} featured isLiked />
+        <EmployerCard {...EmployerObj} />
+      </EmployerGrid>
+      <EmployerGridSmall>
+        <EmployerCard {...EmployerObj} size="sm" />
+        <EmployerCard {...EmployerObj} size="sm" featured isLiked />
+      </EmployerGridSmall>
+    </GridContainer>
   );
 };
 
