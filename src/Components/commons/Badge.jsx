@@ -32,7 +32,7 @@ const BadgeContainer = styled.div`
   color: white;
   font-size: 13px;
   animation: 1s ${fadeIn} ease-out;
-  margin: 3px;
+  margin-right: 5px;
 `;
 
 const BadgeText = styled.p`
