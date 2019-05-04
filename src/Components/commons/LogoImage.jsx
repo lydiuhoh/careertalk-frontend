@@ -8,6 +8,7 @@ import { fadeIn } from './styles';
 const propTypes = exact({
   url: PropTypes.string.isRequired,
   size: PropTypes.string,
+  className: PropTypes.string,
 });
 
 const LogoContainer = styled.img`
@@ -15,6 +16,8 @@ const LogoContainer = styled.img`
   border-radius: 3px;
   border: 0.9px solid #dfe6e9;
   padding: 1px;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
 `;
 
 function addDefaultSrc(ev) {
@@ -31,10 +34,12 @@ const getLogoSize = (size) => {
   }
 };
 
-const LogoImage = ({ url, size = 'lg' }) => (
+const LogoImage = ({ url, size = 'lg', className }) => (
   <LogoContainer
     src={`https://logo.clearbit.com/${url}?size=${getLogoSize(size)}`}
     onError={addDefaultSrc}
+    className={className}
+    size={getLogoSize(size)}
   />
 );
 

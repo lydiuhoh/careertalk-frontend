@@ -13,11 +13,19 @@ const Card = styled(BaseCard)`
   padding: ${props => (props.size === 'sm' ? '10px' : '15px')};
 `;
 
+const ImageBox = styled(LogoImage)``;
+
+const LogoAndContent = styled.div`
+  flex-start: left;
+  display: flex;
+  flex-direction: row;
+`;
+
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
-  margin-left: 10px;
+  margin-left: 5px;
 `;
 
 const CompanyTitle = styled.h1`
@@ -44,24 +52,25 @@ const DescriptionTitleEllipsis = styled(LinesEllipsis)`
 `;
 
 const DetailContent = styled.div`
-  padding: 10px 0;
+  padding: 5px 0;
 `;
 
 const DetailInfoContainer = styled.div`
   padding-bottom: 5px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: left;
   align-items: center;
   width: 100%;
 `;
 
-const DetailText = styled.p`
-  padding: 1px 0;
-  font-size: 12px;
-  font-weight: 500;
-  color: ${props => props.theme.midnightBlueColor};
-`;
+// const DetailText = styled.p`
+//   padding: 1px 0;
+//   font-size: 12px;
+//   font-weight: 500;
+//   color: ${props => props.theme.midnightBlueColor};
+// `;
 
 const CardActions = styled.div``;
 
@@ -82,42 +91,36 @@ export default ({
 
   return (
     <Card size={size}>
-      <LogoImage url={employer.company_url} size="sm" />
-      <Content onClick={() => console.log(`Clicked ${employer.name}`)}>
-        <CompanyTitle>
-          {employer.name} {featured && <span>Featured</span>}
-        </CompanyTitle>
-        {size !== 'sm' && (
-          <>
-            <p>Chicago, IL</p>
-            <DescriptionTitle>{employer.industry}</DescriptionTitle>
-            <DescriptionTitleEllipsis
-              text={employer.description}
-              maxLine="2"
-              ellipsis="..."
-              trimRight
-              basedOn="letters"
-            />
-          </>
-        )}
-
-        <DetailContent>
-          <DetailInfoContainer>
-            <DetailText>Hirings: </DetailText>
-            <Badge value={positions} type="hiring" />
-          </DetailInfoContainer>
-          <DetailInfoContainer>
-            <DetailText>Majors: </DetailText>
-            <Badge value={majors} type="major" />
-          </DetailInfoContainer>
-          {visaSupport === 'yes' && (
-            <DetailInfoContainer>
-              <DetailText>Visa:</DetailText>
-              <Badge value="Sponsored" type="visa" />
-            </DetailInfoContainer>
+      <LogoAndContent>
+        <ImageBox url={employer.company_url} size="sm" />
+        <Content onClick={() => console.log(`Clicked ${employer.name}`)}>
+          <CompanyTitle>
+            {employer.name} {featured && <span>Featured</span>}
+          </CompanyTitle>
+          {size !== 'sm' && (
+            <>
+              <p>Chicago, IL</p>
+              <DescriptionTitle>{employer.industry}</DescriptionTitle>
+              <DescriptionTitleEllipsis
+                text={employer.description}
+                maxLine="2"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              />
+            </>
           )}
-        </DetailContent>
-      </Content>
+          <DetailContent>
+            <DetailInfoContainer>
+              <Badge value={positions} type="hiring" />
+              <Badge value={majors} type="major" />
+              {visaSupport === 'yes' && (
+                <Badge value={size === 'sm' ? 'F1' : 'Visa Sponsored'} type="visa" />
+              )}
+            </DetailInfoContainer>
+          </DetailContent>
+        </Content>
+      </LogoAndContent>
       <CardActions>
         <HeartButtonExt isLiked={isLiked} onClick={toggleLike} />
       </CardActions>

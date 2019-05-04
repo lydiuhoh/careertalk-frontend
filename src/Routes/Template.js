@@ -108,14 +108,14 @@ const Template = props => {
 };
 
 const EmployerGrid = styled(GridSix)`
-  grid-auto-rows: minmax(200px, auto);
+  grid-auto-rows: minmax(150px, auto);
   grid-gap: 15px;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 `;
 
 const EmployerGridSmall = styled(GridSeven)`
   margin-top: 15px;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(80px, auto);
   grid-gap: 15px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 `;
@@ -124,13 +124,13 @@ const EmployerGroups = () => {
   return (
     <GridContainer>
       <EmployerGrid>
-        <EmployerCard {...EmployerObj} />
-        <EmployerCard {...EmployerObj} featured />
+        <EmployerCard {...EmployerObj} isLiked />
+        <EmployerCard {...EmployerObj} featured isLiked />
         <EmployerCard {...EmployerObj} />
       </EmployerGrid>
       <EmployerGridSmall>
         <EmployerCard {...EmployerObj} size="sm" />
-        <EmployerCard {...EmployerObj} size="sm" featured />
+        <EmployerCard {...EmployerObj} size="sm" featured isLiked />
       </EmployerGridSmall>
     </GridContainer>
   );

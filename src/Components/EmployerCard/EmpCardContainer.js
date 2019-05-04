@@ -20,15 +20,18 @@ const propTypes = exact({
   visa_support: PropTypes.string.isRequired,
   size: PropTypes.string,
   featured: PropTypes.bool,
+  isLiked: PropTypes.bool,
 });
 
 const EmpCardContainer = props => {
-  const [isLikedS, setIsLiked] = useState(true);
+  const [isLikedS, setIsLiked] = useState(props.isLiked);
 
   const toggleLike = () => {
     if (isLikedS) {
+      console.log('Unlike!!');
       setIsLiked(!isLikedS);
     } else {
+      console.log('Like this!!');
       setIsLiked(!isLikedS);
     }
   };
