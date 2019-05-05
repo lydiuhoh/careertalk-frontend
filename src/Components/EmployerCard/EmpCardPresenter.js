@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import LinesEllipsis from 'react-lines-ellipsis';
 
 import { BaseCard, LogoImage, HeartButton, Badge } from '../commons';
+import { NoteIcon } from '../Icons';
 
 const Card = styled(BaseCard)`
   display: flex;
@@ -78,9 +79,13 @@ const CardActions = styled.div`
   position: absolute;
   top: 5px;
   right: 5px;
+  display: flex;
+  align-items: center;
 `;
 
 const HeartButtonExt = styled(HeartButton)``;
+
+const NoteIconExt = styled(NoteIcon)``;
 
 export default ({
   employer,
@@ -128,6 +133,7 @@ export default ({
         </Content>
       </LogoAndContent>
       <CardActions>
+        <NoteIconExt />
         <HeartButtonExt isLiked={isLiked} onClick={toggleLike} />
       </CardActions>
     </Card>
