@@ -117,7 +117,7 @@ const EmployerGridSmall = styled(GridSeven)`
   margin-top: 15px;
   grid-auto-rows: minmax(80px, auto);
   grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 `;
 
 const EmployerGroups = () => {
