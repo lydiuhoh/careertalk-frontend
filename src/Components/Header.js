@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { HamburgerMenu } from './Icons';
@@ -49,10 +50,12 @@ const SubTitle = styled.h3`
 const TitleField = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const LogoImage = styled.img`
   width: 45px;
+  cursor: pointer;
 `;
 
 class Header extends React.Component {
@@ -70,6 +73,12 @@ class Header extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  redirectToHome = () => {
+    const { history: { push } } = this.props;
+
+    push('/');
   }
 
   handleScroll() {
@@ -92,8 +101,8 @@ class Header extends React.Component {
     return (
       <Container isScroll={isScroll}>
         <HeaderColumn>
-          <LogoImage src={require('../images/logo_transparent.png')} />
-          <TitleField>
+          <LogoImage src={require('../images/logo_transparent.png')} onClick={this.redirectToHome} />
+          <TitleField onClick={this.redirectToHome}>
             <Title>CareerTalk</Title>
             {!isScroll && <SubTitle>Ignite your career</SubTitle>}
           </TitleField>
@@ -112,4 +121,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);
