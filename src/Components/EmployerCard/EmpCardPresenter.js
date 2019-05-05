@@ -6,6 +6,7 @@ import { BaseCard, LogoImage, HeartButton, Badge } from '../commons';
 
 const Card = styled(BaseCard)`
   display: flex;
+  position: relative;
   with: 100%;
   justify-content: space-between;
   align-items: flex-start;
@@ -25,6 +26,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
+  width: 100%;
   margin-left: 5px;
 `;
 
@@ -72,7 +74,11 @@ const DetailInfoContainer = styled.div`
 //   color: ${props => props.theme.midnightBlueColor};
 // `;
 
-const CardActions = styled.div``;
+const CardActions = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+`;
 
 const HeartButtonExt = styled(HeartButton)``;
 
