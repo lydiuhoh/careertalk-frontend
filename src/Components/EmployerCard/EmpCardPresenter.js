@@ -85,8 +85,6 @@ const CardActions = styled.div`
 
 const HeartButtonExt = styled(HeartButton)``;
 
-const NoteIconExt = styled(NoteIcon)``;
-
 export default ({
   employer,
   isLiked,
@@ -133,7 +131,7 @@ export default ({
         </Content>
       </LogoAndContent>
       <CardActions>
-        <NoteIconExt />
+        <NoteIcon />
         <HeartButtonExt isLiked={isLiked} onClick={toggleLike} />
       </CardActions>
     </Card>
