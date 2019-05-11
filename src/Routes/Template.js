@@ -117,17 +117,12 @@ const EmployerGridSmall = styled(GridSeven)`
   margin-top: 15px;
   grid-auto-rows: minmax(80px, auto);
   grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 `;
 
 const EmployerGroups = () => {
   return (
     <GridContainer>
-      <EmployerGrid>
-        <EmployerCard {...EmployerObj} isLiked />
-        <EmployerCard {...EmployerObj} featured isLiked />
-        <EmployerCard {...EmployerObj} />
-      </EmployerGrid>
       <EmployerGridSmall>
         <EmployerCard {...EmployerObj} size="sm" />
         <EmployerCard {...EmployerObj} size="sm" featured isLiked />
