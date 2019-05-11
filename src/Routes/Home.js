@@ -1,34 +1,46 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from 'react-apollo-hooks';
-import { gql, } from 'apollo-boost';
+import { gql } from 'apollo-boost';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 
 import withRouteComponent from './withRouteComponent';
-import { Container, Button } from '../Components/commons';
+import { Container, Button, BaseCard } from '../Components/commons';
 import AppConfig from '../config.json';
 
 const googleClientId = AppConfig.GOOGLE_CLIENT_ID;
 
+const HomeContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+`;
+
 const Title = styled.h1`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   padding: 15px 0;
 `;
 
-const HomeContainer = styled.div`
+const AuthCard = styled(BaseCard)`
   display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  margin: 0 auto;
-  padding: 15px;
+  padding: 30px 70px;
+  height: 300px;
 `;
 
-const TemplateButton = styled(Button)`
-  width: 300px;
-  margin: 30px 0;
+const DefaultLoginButton = styled(Button)`
+  font-size: 14px;
+  width: 180px;
+  margin-top: 10px;
+  border-radius: 2px;
+  font-weight: 450;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.54);
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
 `;
 
 // ---------------------------------------------------------------------------- //
@@ -68,16 +80,19 @@ const Home = props => {
     const { tokenId, googleId } = res;
 
     if (tokenId && googleId) {
-      const { data: { userLogin: token } } = await googleSiginMutation({
-        variables: {
-          tokenId,
-          googleId
-        }
-      });
-      localLoginMutation({ variables: { token } });
-      setHomeText('Great! You are now logged in.');
-    } else {
-      console.log('Google Sign in error');
+      try {
+        const { data: { userLogin: token } } = await googleSiginMutation({
+          variables: {
+            tokenId,
+            googleId
+          }
+        });
+        localLoginMutation({ variables: { token } });
+        setHomeText('Great! You are now logged in.');
+      } catch (error) {
+        // TODO: Error handling
+        console.error(error.message);
+      }
     }
   };
 
@@ -87,8 +102,8 @@ const Home = props => {
   };
 
   return (
-    <Container isSideBar={props.isSideBar}>
-      <HomeContainer>
+    <HomeContainer isSideBar={props.isSideBar}>
+      <AuthCard>
         <Title>{homeText}</Title>
 
         {isLoggedIn ? (
@@ -107,9 +122,9 @@ const Home = props => {
           />
         )}
 
-        <TemplateButton value="Templates" onClick={() => props.history.push('template')} />
-      </HomeContainer>
-    </Container>
+        <DefaultLoginButton value="Sign in with default" onClick={() => console.log('click')} />
+      </AuthCard>
+    </HomeContainer>
   );
 };
 
