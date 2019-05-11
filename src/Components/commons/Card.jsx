@@ -11,7 +11,7 @@ const TestBox = styled.div`
   }
 `;
 
-const BaseCard = styled.div`
+const Card = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,10 @@ const BaseCard = styled.div`
   padding: 20px;
   color: black;
   ${shadowBox};
+`;
+
+const BaseCard = styled(Card)`
   ${onHoverEffect};
 `;
 
-export { TestBox, BaseCard };
+export { TestBox, Card, BaseCard };
