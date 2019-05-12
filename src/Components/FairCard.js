@@ -39,13 +39,13 @@ const FairInfoText = styled.h1`
   font-weight: 600;
 `;
 
-const FairCard = ({ fair }) => {
+const FairCard = ({ fair, onClick }) => {
   const fairDate = new Date(fair.date).toDateString();
   const timeString = `${fair.start_time} - ${fair.end_time}`;
   const dateString = `${fairDate} ${timeString}`;
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       <BaseFairCard>
         <LogoImage url="www.uic.edu" />
         <NumOfEmployers><span>{fair.num_of_employers}</span> Employers</NumOfEmployers>
