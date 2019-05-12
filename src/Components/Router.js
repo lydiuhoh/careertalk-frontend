@@ -3,14 +3,19 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 // import Auth from '../Routes/Auth';
 import Fairs from '../Routes/Fairs';
-// import About from '../Routes/About';
+import EmployerList from '../Routes/EmployerList';
+import About from '../Routes/About';
 import Template from '../Routes/Template';
-// import GetInvolved from '../Routes/GetInvolved';
+import GetInvolved from '../Routes/GetInvolved';
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Fairs} />
+    <Route path="/fair/:fairId/employers" component={EmployerList} />
     <Route path="/template" component={Template} />
+    <Route path="/about" component={About} />
+    <Route path="/get-invloced" component={GetInvolved} />
+
     <Redirect from="*" to="/" />
   </Switch>
 );

@@ -34,17 +34,24 @@ const Fairs = props => {
     loading
   } = useQuery(FAIRS);
 
+  const redirect = (id) => {
+    const { history: { push } } = props;
+
+    push(`/fair/${id}/employers`);
+  };
+
+
   return (
     <Wrapper isSideBar={props.isSideBar}>
-      {loading ? <LoadingLogo /> : <FairList fairs={fairs} />}
+      {loading ? <LoadingLogo /> : <FairList fairs={fairs} redirect={redirect} />}
     </Wrapper>
   );
 };
 
-const FairList = ({ fairs }) => (
+const FairList = ({ fairs, redirect }) => (
   <>
     {fairs.map((fair, index) => (
-      <FairCard fair={fair} key={index} onClick={() => console.log(fair)} />
+      <FairCard fair={fair} key={index} onClick={() => redirect(fair.id)} />
     ))}
   </>
 );
