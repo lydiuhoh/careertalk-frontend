@@ -25,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "graphql": "cd graphql && yarn dev",
+    "dev": "concurrently \"yarn graphql\" \"yarn start\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +39,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
