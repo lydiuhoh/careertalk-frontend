@@ -1,0 +1,16 @@
+type EmployerListResponse {
+  careerfair_id: Int!
+  degree_requirements: [String!]!
+  hiring_majors: [String!]!
+  hiring_types: [String!]!
+  tables: [Int]!
+  visa_support: String!
+  isLiked: Boolean
+  isNote: Boolean
+  likeCount: Int
+  employer: Employer!
+}
+
+type Query {
+  getEmployerList: [EmployerListResponse!]!
+}
