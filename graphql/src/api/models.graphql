@@ -4,7 +4,7 @@ type Fair {
   date: String!
   description: String!
   end_time: String!
-  id: Int!
+  id: String!
   location: String!
   map_url: String!
   name: String!
@@ -12,4 +12,14 @@ type Fair {
   organization_id: Int!
   start_time: String!
   zipcode: String!
+}
+
+type Employer {
+  company_url: String!
+  description: String
+  found_year: String
+  hq_city: String
+  id: String!
+  logo_url: String
+  name: String!
 }
