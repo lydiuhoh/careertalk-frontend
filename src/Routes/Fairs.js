@@ -4,7 +4,7 @@ import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 
 import withRouteComponent from './withRouteComponent';
-import { Container, LoadingLogo } from '../Components/commons';
+import { Container, LoadingLogo, GridSix } from '../Components/commons';
 import FairCard from '../Components/FairCard';
 
 const FAIRS = gql`
@@ -22,9 +22,15 @@ const FAIRS = gql`
   }
 `;
 
-const Wrapper = styled(Container)`
-  display: flex;
-  flex-direction: column;
+const FairsContainer = styled(Container)``;
+
+const Wrapper = styled.div``;
+
+const FairListGrid = styled(GridSix)`
+  grid-auto-rows: auto;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, 350px);
+  justify-content: center;
   align-items: center;
 `;
 
@@ -42,18 +48,20 @@ const Fairs = props => {
 
 
   return (
-    <Wrapper isSideBar={props.isSideBar}>
-      {loading ? <LoadingLogo /> : <FairList fairs={fairs} redirect={redirect} />}
-    </Wrapper>
+    <FairsContainer isSideBar={props.isSideBar}>
+      <Wrapper>
+        {loading ? <LoadingLogo /> : <FairList fairs={fairs} redirect={redirect} />}
+      </Wrapper>
+    </FairsContainer>
   );
 };
 
 const FairList = ({ fairs, redirect }) => (
-  <>
+  <FairListGrid>
     {fairs.map((fair, index) => (
       <FairCard fair={fair} key={index} onClick={() => redirect(fair.id)} />
     ))}
-  </>
+  </FairListGrid>
 );
 
 export default withRouteComponent(Fairs);

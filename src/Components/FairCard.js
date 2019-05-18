@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BaseCard, LogoImage } from './commons';
 
 const Container = styled.div`
-  width: 350px;
+  width: 100%;
 `;
 
 const BaseFairCard = styled(BaseCard)`
@@ -14,7 +14,7 @@ const BaseFairCard = styled(BaseCard)`
 `;
 
 const NumOfEmployers = styled.div`
-  padding: 5px 0;
+  padding: 5px;
   span {
     font-weight: 550;
     color: #3f7c55;
