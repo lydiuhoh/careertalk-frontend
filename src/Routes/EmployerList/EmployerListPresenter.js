@@ -1,16 +1,29 @@
 import React from 'react';
-
 import styled from 'styled-components';
-import { Container } from '../../Components/commons';
 
-const Wrapper = styled(Container)``;
+import withRouteComponent from '../withRouteComponent';
+import { Container, LoadingLogo } from '../../Components/commons';
 
-const EmployerListPresenter = () => {
+const EmployerListContainer = styled(Container)``;
+
+const LoadingWrapper = styled.div`
+  display: grid;
+  justify-content: center;
+`;
+
+const EmployerListPresenter = ({ loading, employers }) => {
+  console.log(employers);
   return (
-    <Wrapper>
-      <h1>Employer List</h1>
-    </Wrapper>
+    <EmployerListContainer>
+      {loading ? (
+        <LoadingWrapper>
+          <LoadingLogo />
+        </LoadingWrapper>
+      ) : (
+        <h1>Employers</h1>
+      )}
+    </EmployerListContainer>
   );
 };
 
-export default EmployerListPresenter;
+export default withRouteComponent(EmployerListPresenter);
