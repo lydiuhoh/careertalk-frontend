@@ -6,6 +6,7 @@ import { gql } from 'apollo-boost';
 import withRouteComponent from './withRouteComponent';
 import { Container, LoadingLogo, GridSix } from '../Components/commons';
 import FairCard from '../Components/FairCard';
+import { ErrorBox } from './ErrorFallback';
 
 const FAIRS = gql`
   {
@@ -55,7 +56,7 @@ const Fairs = props => {
 
   return (
     <FairsContainer isSideBar={props.isSideBar}>
-      {error && <h1>There is error!!</h1>}
+      {error && <ErrorBox message={error.message} /> }
       <Wrapper>
         {loading && (
           <LoadingWrapper>
