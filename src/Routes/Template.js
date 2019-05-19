@@ -24,7 +24,8 @@ import {
   LoadingSpinner,
   LoadingLogo,
   BaseCard,
-  LogoImage
+  LogoImage,
+  Avatar
 } from '../Components/commons';
 import useInput from '../Hooks/useInput';
 import FairCard from '../Components/FairCard';

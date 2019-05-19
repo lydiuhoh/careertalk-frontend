@@ -66,7 +66,7 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
                 sidebar: {
                   position: 'fixed',
                   backgroundColor: 'white',
-                  width: '50%',
+                  width: '35%',
                   zIndex: '10'
                 }
               }}

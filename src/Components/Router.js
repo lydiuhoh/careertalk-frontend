@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-// import Auth from '../Routes/Auth';
+import Auth from '../Routes/Auth';
 import Fairs from '../Routes/Fairs';
 import EmployerList from '../Routes/EmployerList';
 import About from '../Routes/About';
@@ -11,6 +11,7 @@ import GetInvolved from '../Routes/GetInvolved';
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Fairs} />
+    <Route exact path="/auth" component={Auth} />
     <Route path="/fair/:fairId/employers" component={EmployerList} />
     <Route path="/template" component={Template} />
     <Route path="/about" component={About} />

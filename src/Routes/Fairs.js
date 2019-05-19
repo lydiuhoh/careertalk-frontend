@@ -26,6 +26,11 @@ const FairsContainer = styled(Container)``;
 
 const Wrapper = styled.div``;
 
+const LoadingWrapper = styled.div`
+  display: grid;
+  justify-content: center;
+`;
+
 const FairListGrid = styled(GridSix)`
   grid-auto-rows: auto;
   grid-gap: 15px;
@@ -35,10 +40,7 @@ const FairListGrid = styled(GridSix)`
 `;
 
 const Fairs = props => {
-  const {
-    data: { getFair: fairs },
-    loading
-  } = useQuery(FAIRS);
+  const { data: { getFair: fairs }, loading } = useQuery(FAIRS);
 
   const redirect = (id) => {
     const { history: { push } } = props;
@@ -50,7 +52,13 @@ const Fairs = props => {
   return (
     <FairsContainer isSideBar={props.isSideBar}>
       <Wrapper>
-        {loading ? <LoadingLogo /> : <FairList fairs={fairs} redirect={redirect} />}
+        {loading ? (
+          <LoadingWrapper>
+            <LoadingLogo />
+          </LoadingWrapper>
+        ) : (
+          <FairList fairs={fairs} redirect={redirect} />
+        )}
       </Wrapper>
     </FairsContainer>
   );

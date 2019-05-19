@@ -20,8 +20,17 @@ const LogoContainer = styled.img`
   height: ${props => props.size}px;
 `;
 
+const AvatarContainer = styled(LogoContainer)`
+  border-radius: 40px;
+  border: none;
+`;
+
 function addDefaultSrc(ev) {
   ev.target.src = require('../../images/no_company_img.png');
+}
+
+function addDefaultUser(ev) {
+  ev.target.src = require('../../images/no_avatar.jpg');
 }
 
 const getLogoSize = (size) => {
@@ -43,6 +52,15 @@ const LogoImage = ({ url, size = 'lg', className }) => (
   />
 );
 
+const Avatar = ({ url, className }) => (
+  <AvatarContainer
+    src={url}
+    onError={addDefaultUser}
+    className={className}
+    size={40}
+  />
+);
+
 LogoImage.propTypes = propTypes;
 
-export { LogoImage };
+export { LogoImage, Avatar };

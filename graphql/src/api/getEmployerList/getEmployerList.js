@@ -6,7 +6,7 @@ export default {
   Query: {
     getEmployerList: async (_, args, { request, isAuthenticated }) => {
       // const { fairId, isUser } = args;
-      const URL = 'https://careertalk-integration.herokuapp.com/v2/3/anon_user/employers';
+      const URL = 'https://careertalk-integration.herokuapp.com/v2/1/anon_user/employers';
 
       // if (isUser) {
       //   isAuthenticated(request);
