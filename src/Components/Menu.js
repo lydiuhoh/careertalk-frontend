@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-apollo-hooks';
+
 import styled from 'styled-components';
 
+import { ISLOGGEDIN_QUERY } from '../Apollo/sharedQueries';
 import { MapIcon, FlagIcon, FavoriteListIcon, FairsListIcon, ArrowRightIcon } from './Icons';
 import { Avatar } from './commons';
 
@@ -102,111 +105,109 @@ const MenuButton = styled.button`
   background-color: transparent;
 `;
 
-const HeaderMenu = () => (
-  <>
-    <MenuItem>
-      <SideMenuIcon>
-        <FlagIcon />
-      </SideMenuIcon>
-      <SideMenuTitle>Featured</SideMenuTitle>
-    </MenuItem>
-    <MenuItem>
-      <SideMenuIcon>
-        <FairsListIcon />
-      </SideMenuIcon>
-      <SideMenuTitle>Fairs</SideMenuTitle>
-    </MenuItem>
-    <MenuItem>
-      <SideMenuIcon>
-        <FavoriteListIcon />
-      </SideMenuIcon>
-      <SideMenuTitle>Favorites</SideMenuTitle>
-    </MenuItem>
-    <MenuItem>
-      <SideMenuIcon>
-        <MapIcon />
-      </SideMenuIcon>
-      <SideMenuTitle>Map</SideMenuTitle>
-    </MenuItem>
-    <MenuItem>
-      <Avatar url="" size={40} />
-    </MenuItem>
-  </>
-);
+const HeaderMenu = () => {
+  const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
 
-class BarMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleScroll = this.handleScroll.bind(this);
-    this.state = {
-      isScroll: false
-    };
-  }
+  return (
+    <>
+      <MenuItem>
+        <SideMenuIcon>
+          <FlagIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Featured</SideMenuTitle>
+      </MenuItem>
+      <MenuItem>
+        <SideMenuIcon>
+          <FairsListIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Fairs</SideMenuTitle>
+      </MenuItem>
+      <MenuItem>
+        <SideMenuIcon>
+          <FavoriteListIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Favorites</SideMenuTitle>
+      </MenuItem>
+      <MenuItem>
+        <SideMenuIcon>
+          <MapIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Map</SideMenuTitle>
+      </MenuItem>
+      <MenuItem>
+        {isLoggedIn ? <Avatar url="" size={40} /> : <SideMenuTitle>Sign in</SideMenuTitle>}
+      </MenuItem>
+    </>
+  );
+};
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll() {
+const BarMenu = props => {
+  const {
+    data: { isLoggedIn }
+  } = useQuery(ISLOGGEDIN_QUERY);
+  const [isScroll, setScroll] = useState(window.scrollY > 30);
+  const handleScroll = () => {
     const scrollHeight = window.scrollY;
-
     if (scrollHeight > 30) {
-      this.setState({
-        isScroll: true
-      });
+      setScroll(true);
     } else {
-      this.setState({
-        isScroll: false
-      });
+      setScroll(false);
     }
-  }
+  };
 
-  render() {
-    const { isScroll } = this.state;
-    const { toggleMenu } = this.props;
+  useEffect(() => {
+    // Component did mount
+    window.addEventListener('scroll', handleScroll);
 
-    return (
-      <SideMenuContainer>
-        <MenuTop isScroll={isScroll}>
-          <ArrowWrapper onClick={toggleMenu}>
-            <ArrowRightIcon />
-          </ArrowWrapper>
-        </MenuTop>
-        <SideMenuItem>
-          <SideMenuIcon>
-            <FlagIcon />
-          </SideMenuIcon>
-          <SideMenuTitle>Featured</SideMenuTitle>
-        </SideMenuItem>
-        <SideMenuItem>
-          <SideMenuIcon>
-            <FairsListIcon />
-          </SideMenuIcon>
-          <SideMenuTitle>Fairs</SideMenuTitle>
-        </SideMenuItem>
-        <SideMenuItem>
-          <SideMenuIcon>
-            <FavoriteListIcon />
-          </SideMenuIcon>
-          <SideMenuTitle>Favorites</SideMenuTitle>
-        </SideMenuItem>
-        <SideMenuItem>
-          <SideMenuIcon>
-            <MapIcon />
-          </SideMenuIcon>
-          <SideMenuTitle>Map</SideMenuTitle>
-        </SideMenuItem>
-        <SideMenuItem>
-          <Avatar url="" />
-          <MeTitle>Me</MeTitle>
-        </SideMenuItem>
-      </SideMenuContainer>
-    );
-  }
-}
+    // Component will unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <SideMenuContainer>
+      <MenuTop isScroll={isScroll}>
+        <ArrowWrapper onClick={props.toggleMenu}>
+          <ArrowRightIcon />
+        </ArrowWrapper>
+      </MenuTop>
+      <SideMenuItem>
+        <SideMenuIcon>
+          <FlagIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Featured</SideMenuTitle>
+      </SideMenuItem>
+      <SideMenuItem>
+        <SideMenuIcon>
+          <FairsListIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Fairs</SideMenuTitle>
+      </SideMenuItem>
+      <SideMenuItem>
+        <SideMenuIcon>
+          <FavoriteListIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Favorites</SideMenuTitle>
+      </SideMenuItem>
+      <SideMenuItem>
+        <SideMenuIcon>
+          <MapIcon />
+        </SideMenuIcon>
+        <SideMenuTitle>Map</SideMenuTitle>
+      </SideMenuItem>
+      <SideMenuItem>
+        {isLoggedIn ? (
+          <>
+            <Avatar url="" />
+            <MeTitle>Me</MeTitle>
+          </>
+        ) : (
+          <SideMenuTitle>Sign in</SideMenuTitle>
+        )}
+      </SideMenuItem>
+    </SideMenuContainer>
+  );
+};
 
 export { HeaderMenu, BarMenu, MenuButton };
