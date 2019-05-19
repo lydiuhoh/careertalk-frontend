@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import withRouteComponent from '../withRouteComponent';
 import { Container, LoadingLogo } from '../../Components/commons';
+import { ErrorBox } from '../ErrorFallback';
 
 const EmployerListContainer = styled(Container)``;
 
@@ -11,17 +12,16 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `;
 
-const EmployerListPresenter = ({ loading, employers }) => {
-  console.log(employers);
+const EmployerListPresenter = ({ loading, employers, error }) => {
   return (
     <EmployerListContainer>
-      {loading ? (
+      {error && <ErrorBox message={error.message} />}
+      {loading && (
         <LoadingWrapper>
           <LoadingLogo />
         </LoadingWrapper>
-      ) : (
-        <h1>Employers</h1>
       )}
+      {!loading && !error && <h1>{`Now we have ${employers.length}`}</h1>}
     </EmployerListContainer>
   );
 };
