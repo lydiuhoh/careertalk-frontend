@@ -26,7 +26,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "react-install": "yarn",
     "graphql": "cd graphql && yarn dev",
+    "graphql-install": "cd graphql && yarn",
+    "set": "concurrently \"yarn graphql-install\" \"yarn react-install\"",
     "dev": "concurrently \"yarn graphql\" \"yarn start\""
   },
   "eslintConfig": {
