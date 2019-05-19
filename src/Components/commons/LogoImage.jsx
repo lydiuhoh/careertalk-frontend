@@ -57,7 +57,7 @@ const Avatar = ({ url, className }) => (
     src={url}
     onError={addDefaultUser}
     className={className}
-    size={40}
+    size={50}
   />
 );
 
