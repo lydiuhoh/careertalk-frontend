@@ -52,7 +52,7 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
               <title>CareerTalk</title>
             </Helmet>
             <Sidebar
-              sidebar={<BarMenu />}
+              sidebar={<BarMenu toggleMenu={this.toggleMenu} />}
               open={this.state.isMenuOpen}
               onSetOpen={this.toggleMenu}
               pullRight
