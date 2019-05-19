@@ -33,6 +33,7 @@ const ErrorTitle = styled.p`
   font-size: 55px;
   font-weight: bold;
   padding: 25px 0;
+  letter-spacing: 0.3px;
 `;
 
 const WellText = styled(ErrorTitle)`
@@ -44,6 +45,7 @@ const HintText = styled(ErrorTitle)`
   font-size: 15px;
   font-weight: 450;
   padding: 10px 0;
+  line-height: 22px;
 `;
 
 const ReactError = () => (
@@ -61,7 +63,7 @@ const ServerError = () => (
     <WellText>Well, this is unexpected...</WellText>
     <HintText>Error code: 500</HintText>
     <HintText>
-      An error has occurred and we're working to fix the problem! We'll be up and runing shortly
+      An error has occurred and we're working to fix the problem! We'll be up and runing shortly.
     </HintText>
     <HintText>
       Please report the error to our developers and thanks for your patience!
