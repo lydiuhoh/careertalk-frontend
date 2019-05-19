@@ -5,7 +5,6 @@ import withSizes from 'react-sizes';
 import styled from 'styled-components';
 
 import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 import { BarMenu } from '../Components/Menu';
 import ErrorFallback from './ErrorFallback';
 
@@ -79,7 +78,6 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
                   <Content isSideBar={this.props.isSideBar}>
                     <WrappedComponent {...this.props} />
                   </Content>
-                  <Footer />
                 </>
               )}
             </Sidebar>

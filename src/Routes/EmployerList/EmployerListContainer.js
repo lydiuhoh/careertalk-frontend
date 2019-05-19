@@ -8,10 +8,11 @@ import withRouteComponent from '../withRouteComponent';
 const Employers = ({ match: { params: { fairId } } }) => {
   const {
     data: { getEmployerList: employers },
-    loading
+    loading,
+    error
   } = useQuery(EMPLOYERS, { variables: { fairId, isUser: false } });
 
-  return <EmployerListPresenter loading={loading} employers={employers} />;
+  return <EmployerListPresenter loading={loading} employers={employers} error={error} />;
 };
 
 export default withRouteComponent(Employers);
