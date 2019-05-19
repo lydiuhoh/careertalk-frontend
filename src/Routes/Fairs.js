@@ -40,9 +40,13 @@ const FairListGrid = styled(GridSix)`
 `;
 
 const Fairs = props => {
-  const { data: { getFair: fairs }, loading } = useQuery(FAIRS);
+  const {
+    data: { getFair: fairs },
+    loading,
+    error
+  } = useQuery(FAIRS);
 
-  const redirect = (id) => {
+  const redirect = id => {
     const { history: { push } } = props;
 
     push(`/fair/${id}/employers`);
@@ -51,14 +55,14 @@ const Fairs = props => {
 
   return (
     <FairsContainer isSideBar={props.isSideBar}>
+      {error && <h1>There is error!!</h1>}
       <Wrapper>
-        {loading ? (
+        {loading && (
           <LoadingWrapper>
             <LoadingLogo />
           </LoadingWrapper>
-        ) : (
-          <FairList fairs={fairs} redirect={redirect} />
         )}
+        {!loading && !error && <FairList fairs={fairs} redirect={redirect} />}
       </Wrapper>
     </FairsContainer>
   );
