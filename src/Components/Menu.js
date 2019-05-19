@@ -29,7 +29,23 @@ const ArrowWrapper = styled.div`
 `;
 
 const MenuItem = styled.div`
-  padding: 3px 10px 3px 10px;
+  display: flex;
+  padding: 3px;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.1s;
+  border-radius: 3px;
+  &:hover {
+    color: ${props => props.theme.blueColor};
+  }
+  &:hover path {
+    fill: ${props => props.theme.blueColor};
+  }
 `;
 
 const SideMenuItem = styled.div`
@@ -63,7 +79,7 @@ const SideMenuIcon = styled.div`
 const SideMenuTitle = styled.div`
   padding: 5px;
   width: 100%;
-  margin-left: 5px;
+  margin-left: 3px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -88,11 +104,33 @@ const MenuButton = styled.button`
 
 const HeaderMenu = () => (
   <>
-    <MenuItem>Featured</MenuItem>
-    <MenuItem>Fairs</MenuItem>
-    <MenuItem>Favorites</MenuItem>
-    <MenuItem>Map</MenuItem>
-    <MenuItem>Me</MenuItem>
+    <MenuItem>
+      <SideMenuIcon>
+        <FlagIcon />
+      </SideMenuIcon>
+      <SideMenuTitle>Featured</SideMenuTitle>
+    </MenuItem>
+    <MenuItem>
+      <SideMenuIcon>
+        <FairsListIcon />
+      </SideMenuIcon>
+      <SideMenuTitle>Fairs</SideMenuTitle>
+    </MenuItem>
+    <MenuItem>
+      <SideMenuIcon>
+        <FavoriteListIcon />
+      </SideMenuIcon>
+      <SideMenuTitle>Favorites</SideMenuTitle>
+    </MenuItem>
+    <MenuItem>
+      <SideMenuIcon>
+        <MapIcon />
+      </SideMenuIcon>
+      <SideMenuTitle>Map</SideMenuTitle>
+    </MenuItem>
+    <MenuItem>
+      <Avatar url="" size={40} />
+    </MenuItem>
   </>
 );
 
