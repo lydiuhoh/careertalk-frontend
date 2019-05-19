@@ -52,12 +52,12 @@ const LogoImage = ({ url, size = 'lg', className }) => (
   />
 );
 
-const Avatar = ({ url, className }) => (
+const Avatar = ({ url, size = 50, className }) => (
   <AvatarContainer
     src={url}
     onError={addDefaultUser}
     className={className}
-    size={50}
+    size={size}
   />
 );
 

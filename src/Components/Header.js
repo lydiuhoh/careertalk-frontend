@@ -15,7 +15,7 @@ const Container = styled.header`
   & svg {
     fill: white;
   }
-  padding: 10px;
+  padding: 0px 10px;
   transition: height 0.3s ease-in-out;
   height: ${props => (props.isScroll ? '50px' : '77px')};
   position: fixed;

@@ -36,6 +36,15 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
         });
       };
 
+      componentWillReceiveProps = props => {
+        const { isSideBar } = props;
+        const { isMenuOpen } = this.state;
+
+        if (!isSideBar && isMenuOpen) {
+          this.toggleMenu();
+        }
+      };
+
       componentDidCatch = () => {
         this.setState({
           hasError: true
