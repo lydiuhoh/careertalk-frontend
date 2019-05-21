@@ -3,6 +3,8 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
+const USER_URL = process.env.NODE_ENV === 'development' ? `${process.env.INT_API_URL}` : `${process.env.API_URL}`;
+
 export default {
   Mutation: {
     userLogin: async (_, args) => {
@@ -25,24 +27,25 @@ export default {
         }
 
         // check existing user: if not found, create new user
-        /**
-        const checkUserOptions = {
-          method: 'POST',
-          headers: { googleId, email, given_name, family_name, picture },
-          url: 'SEHO I NEED THIS ENDPOINT'
+        const headers = {
+          google_id: googleId,
+          email,
+          given_name,
+          family_name,
+          picture,
+          job: 'student'
         };
-        const user = await axios(checkUserOptions);
 
-        if (user === 'Something went wrong') {
-          throw Error('Checking existing user failed.. try again please');
+        const { data: { user }, errors } = await axios.post(`${USER_URL}/v2/register/student/user`, undefined, { headers });
+
+        if (!errors) {
+          const userId = user.id;
+          return jwt.sign({ userId }, process.env.JWT_SECRET);
         }
-        */
-      } catch {
-        throw Error('Invalid Google Token. Please login again.');
+        throw Error(errors.message);
+      } catch (error) {
+        throw Error(error.message);
       }
-
-      // Or we can use user.id
-      return jwt.sign({ googleId }, process.env.JWT_SECRET);
     }
   }
 };
