@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import styled from 'styled-components';
 
-import { Container, Card, Button } from '../../Components/commons';
+import { Container, Card, Loading } from '../../Components/commons';
 import AppConfig from '../../config.json';
 
 const googleClientId = AppConfig.GOOGLE_CLIENT_ID;
@@ -29,23 +29,6 @@ const AuthCard = styled(Card)`
   background-color: white;
 `;
 
-const DefaultLoginButton = styled(Button)`
-  font-size: 14px;
-  width: 180px;
-  border-radius: 2px;
-  font-weight: 450;
-  background-color: rgb(255, 255, 255);
-  color: rgba(0, 0, 0, 0.54);
-  border: 1px solid transparent;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-`;
-
-const Text = styled.p`
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 12px;
-  margin: 10px;
-`;
-
 const LogoImage = styled.img`
   width: 75px;
 `;
@@ -65,21 +48,30 @@ const StoreImage = styled.img`
   cursor: pointer;
 `;
 
-export default ({ responseGoogle }) => {
+const LoadingDiv = styled.div`
+  padding: 10px 0;
+  margin: 5px 0;
+`;
+
+export default ({ responseGoogle, loading }) => {
   return (
     <HomeContainer>
       <AuthCard>
         <LogoImage src={require('../../images/logo_transparent.png')} />
         <Title>Welcome! Please sign in</Title>
-        <GoogleLogin
-          clientId={googleClientId}
-          buttonText="Sign in with Google"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy="single_host_origin"
-        />
-        <Text>OR</Text>
-        <DefaultLoginButton value="Sign in with default" onClick={() => console.log('click')} />
+        {loading ? (
+          <LoadingDiv>
+            <Loading />
+          </LoadingDiv>
+        ) : (
+          <GoogleLogin
+            clientId={googleClientId}
+            buttonText="Sign in with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy="single_host_origin"
+          />
+        )}
       </AuthCard>
       <ImageBox>
         <StoreImage
