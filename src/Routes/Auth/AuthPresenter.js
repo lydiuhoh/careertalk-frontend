@@ -25,7 +25,8 @@ const Title = styled.h1`
 const AuthCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  padding: 50px 70px;
+  min-width: 300px;
+  min-height: 300px;
   background-color: white;
 `;
 
@@ -58,7 +59,7 @@ export default ({ responseGoogle, loading }) => {
     <HomeContainer>
       <AuthCard>
         <LogoImage src={require('../../images/logo_transparent.png')} />
-        <Title>Welcome! Please sign in</Title>
+        <Title>Welcome!</Title>
         {loading ? (
           <LoadingDiv>
             <Loading />

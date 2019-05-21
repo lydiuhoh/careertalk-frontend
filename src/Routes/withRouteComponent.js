@@ -36,6 +36,12 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
         });
       };
 
+      redirectFn = path => {
+        const { history: { push } } = this.props;
+
+        push(path);
+      };
+
       componentWillReceiveProps = props => {
         const { isSideBar } = props;
         const { isMenuOpen } = this.state;
@@ -60,7 +66,7 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
               <title>CareerTalk</title>
             </Helmet>
             <Sidebar
-              sidebar={<BarMenu toggleMenu={this.toggleMenu} />}
+              sidebar={<BarMenu toggleMenu={this.toggleMenu} redirectFn={this.redirectFn} />}
               open={this.state.isMenuOpen}
               onSetOpen={this.toggleMenu}
               pullRight
