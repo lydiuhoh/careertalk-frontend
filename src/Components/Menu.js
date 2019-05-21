@@ -105,8 +105,9 @@ const MenuButton = styled.button`
   background-color: transparent;
 `;
 
-const HeaderMenu = () => {
+const HeaderMenu = (props) => {
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
+  const { redirectFn } = props;
 
   return (
     <>
@@ -135,17 +136,20 @@ const HeaderMenu = () => {
         <SideMenuTitle>Map</SideMenuTitle>
       </MenuItem>
       <MenuItem>
-        {isLoggedIn ? <Avatar url="" size={40} /> : <SideMenuTitle>Sign in</SideMenuTitle>}
+        {isLoggedIn ? (
+          <Avatar url="" size={40} />
+        ) : (
+          <SideMenuTitle onClick={() => redirectFn('/auth')}>Sign in</SideMenuTitle>
+        )}
       </MenuItem>
     </>
   );
 };
 
 const BarMenu = props => {
-  const {
-    data: { isLoggedIn }
-  } = useQuery(ISLOGGEDIN_QUERY);
+  const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const [isScroll, setScroll] = useState(window.scrollY > 30);
+  const { redirectFn } = props;
   const handleScroll = () => {
     const scrollHeight = window.scrollY;
     if (scrollHeight > 30) {
@@ -203,7 +207,7 @@ const BarMenu = props => {
             <MeTitle>Me</MeTitle>
           </>
         ) : (
-          <SideMenuTitle>Sign in</SideMenuTitle>
+          <SideMenuTitle onClick={() => redirectFn('/auth')}>Sign in</SideMenuTitle>
         )}
       </SideMenuItem>
     </SideMenuContainer>

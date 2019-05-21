@@ -81,6 +81,12 @@ class Header extends React.Component {
     push('/');
   }
 
+  redirectFn = path => {
+    const { history: { push } } = this.props;
+
+    push(path);
+  };
+
   handleScroll() {
     const scrollHeight = window.scrollY;
 
@@ -113,7 +119,7 @@ class Header extends React.Component {
               <HamburgerMenu />
             </MenuButton>
           ) : (
-            <HeaderMenu />
+            <HeaderMenu redirectFn={this.redirectFn} />
           )}
         </HeaderColumn>
       </Container>
