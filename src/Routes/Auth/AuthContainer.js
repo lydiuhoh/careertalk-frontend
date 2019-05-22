@@ -13,6 +13,7 @@ const Auth = props => {
     const { history: { push } } = props;
 
     push('/');
+    window.location.reload();
   };
 
   const responseGoogle = async res => {

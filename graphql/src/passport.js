@@ -8,16 +8,14 @@ const JwtOptions = {
 
 const verifyUser = async (payload, done) => {
   try {
-    // console.log(payload); --> { googleId: '110219544438653200265', iat: 1556337009 }
-    // TODO: get user from database by payload.id
-    return done(null, payload); // for testing just attach payload
+    return done(null, payload.userId);
   } catch (error) {
     return done(error, false);
   }
 };
 
 export const isAuthenticated = request => {
-  if (!request.user) {
+  if (!request.userId) {
     throw Error('You need to login to perform this action');
   }
 };
@@ -26,9 +24,9 @@ export const isAuthenticated = request => {
  * Custom Callback
  * Reference: http://www.passportjs.org/docs/authenticate/
  */
-export const authenticateJwt = (req, res, next) => passport.authenticate('jwt', { sessions: false }, (error, user) => {
-  if (user) {
-    req.user = user;
+export const authenticateJwt = (req, res, next) => passport.authenticate('jwt', { sessions: false }, (error, userId) => {
+  if (userId) {
+    req.userId = userId;
   }
   next();
 })(req, res, next);

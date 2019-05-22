@@ -7,15 +7,18 @@ export default {
     getEmployerList: async (_, args, { request, isAuthenticated }) => {
       const { fairId, isUser } = args;
       let URL;
+      let headers;
 
       if (isUser) {
         isAuthenticated(request);
+        const { headers: { authorization }, userId } = request;
+        headers = { Authorization: authorization, id: userId };
+
         URL = `${GET_EMPLOYERS_URL}/v2/${fairId}/employers`;
       } else {
         URL = `${GET_EMPLOYERS_URL}/v2/${fairId}/anon_user/employers`;
       }
-
-      const { data: { companies }, errors } = await axios(URL);
+      const { data: { companies }, errors } = await axios(URL, { headers });
 
       if (!errors) {
         return companies;
