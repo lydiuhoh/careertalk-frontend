@@ -7,14 +7,19 @@ export default {
     getEmployerList: async (_, args, { request, isAuthenticated }) => {
       const { fairId, isUser } = args;
       let URL;
+      let headers;
 
       if (isUser) {
         isAuthenticated(request);
+        const { headers: { authorization } } = request;
+        headers = { Authorization: authorization };
+
         URL = `${GET_EMPLOYERS_URL}/v2/${fairId}/employers`;
       } else {
         URL = `${GET_EMPLOYERS_URL}/v2/${fairId}/anon_user/employers`;
       }
 
+      // TODO: pass auth header for loggedIn user
       const { data: { companies }, errors } = await axios(URL);
 
       if (!errors) {

@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import Sidebar from 'react-sidebar';
 import withSizes from 'react-sizes';
 import styled from 'styled-components';
@@ -62,9 +61,6 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
 
         return (
           <>
-            <Helmet>
-              <title>CareerTalk</title>
-            </Helmet>
             <Sidebar
               sidebar={<BarMenu toggleMenu={this.toggleMenu} redirectFn={this.redirectFn} />}
               open={this.state.isMenuOpen}
