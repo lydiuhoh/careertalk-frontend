@@ -11,16 +11,14 @@ export default {
 
       if (isUser) {
         isAuthenticated(request);
-        const { headers: { authorization } } = request;
-        headers = { Authorization: authorization };
+        const { headers: { authorization }, userId } = request;
+        headers = { Authorization: authorization, id: userId };
 
         URL = `${GET_EMPLOYERS_URL}/v2/${fairId}/employers`;
       } else {
         URL = `${GET_EMPLOYERS_URL}/v2/${fairId}/anon_user/employers`;
       }
-
-      // TODO: pass auth header for loggedIn user
-      const { data: { companies }, errors } = await axios(URL);
+      const { data: { companies }, errors } = await axios(URL, { headers });
 
       if (!errors) {
         return companies;

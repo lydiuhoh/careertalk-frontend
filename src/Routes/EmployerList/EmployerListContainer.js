@@ -12,7 +12,7 @@ const Employers = ({ match: { params: { fairId } } }) => {
     data: { getEmployerList: employers },
     loading,
     error
-  } = useQuery(EMPLOYERS, { variables: { fairId, isUser: false } }); // TODO: isUser: isLoggedIn
+  } = useQuery(EMPLOYERS, { variables: { fairId, isUser: isLoggedIn } });
 
   return <EmployerListPresenter loading={loading} employers={employers} error={error} />;
 };
