@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery, useMutation } from 'react-apollo-hooks';
+import { GoogleLogout } from 'react-google-login';
 
 import styled from 'styled-components';
 
-import { ISLOGGEDIN_QUERY } from '../Apollo/sharedQueries';
+import { ISLOGGEDIN_QUERY, LOCAL_LOG_OUT } from '../Apollo/sharedQueries';
 import { MapIcon, FlagIcon, FavoriteListIcon, FairsListIcon, ArrowRightIcon } from './Icons';
 import { Avatar } from './commons';
+import AppConfig from '../config.json';
+
+const googleClientId = AppConfig.GOOGLE_CLIENT_ID;
 
 const SideMenuContainer = styled.div`
   height: 100vh;
@@ -105,9 +109,40 @@ const MenuButton = styled.button`
   background-color: transparent;
 `;
 
-const HeaderMenu = (props) => {
+const Dropdown = styled.div`
+  position: relative;
+  display: inline-block;
+  &:hover .dropdown-content {
+    display: block;
+  }
+`;
+
+const DropdownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 7px;
+  right: 0;
+`;
+
+const UserAvatar = styled(Avatar)``;
+
+const DropdownItem = styled(SideMenuItem)``;
+
+const HeaderMenu = props => {
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
+  const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
   const { redirectFn } = props;
+
+  const signOutGoogle = () => {
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    if (auth2 != null) {
+      auth2.signOut().then(auth2.disconnect().then(localLogoutMutation));
+    }
+  };
 
   return (
     <>
@@ -137,7 +172,21 @@ const HeaderMenu = (props) => {
       </MenuItem>
       <MenuItem>
         {isLoggedIn ? (
-          <Avatar url="" size={40} />
+          <Dropdown>
+            <UserAvatar url="" size={40} />
+            <DropdownContent className="dropdown-content">
+              <DropdownItem>
+                <SideMenuTitle>View My Profile</SideMenuTitle>
+              </DropdownItem>
+              <DropdownItem>
+                <GoogleLogout
+                  clientId={googleClientId}
+                  render={() => <SideMenuTitle onClick={signOutGoogle}>Sign out</SideMenuTitle>}
+                  onLogoutSuccess={() => console.log('Successfully signed out')}
+                />
+              </DropdownItem>
+            </DropdownContent>
+          </Dropdown>
         ) : (
           <SideMenuTitle onClick={() => redirectFn('/auth')}>Sign in</SideMenuTitle>
         )}
