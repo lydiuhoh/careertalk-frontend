@@ -132,6 +132,17 @@ const UserAvatar = styled(Avatar)``;
 
 const DropdownItem = styled(SideMenuItem)``;
 
+const GoogleSignOutItem = styled(SideMenuItem)`
+  display: grid;
+  justify-content: center;
+  grid-auto-flow: column;
+  padding: 10px;
+`;
+
+const HLine = styled.hr`
+  width: 90%;
+`;
+
 const HeaderMenu = props => {
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
@@ -140,7 +151,11 @@ const HeaderMenu = props => {
   const signOutGoogle = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
     if (auth2 != null) {
-      auth2.signOut().then(auth2.disconnect().then(localLogoutMutation));
+      auth2.signOut().then(auth2.disconnect().then(() => {
+        localLogoutMutation();
+        window.location = '/';
+        window.location.reload(true);
+      }));
     }
   };
 
@@ -178,6 +193,7 @@ const HeaderMenu = props => {
               <DropdownItem>
                 <SideMenuTitle>View My Profile</SideMenuTitle>
               </DropdownItem>
+              <HLine />
               <DropdownItem>
                 <GoogleLogout
                   clientId={googleClientId}
@@ -197,6 +213,7 @@ const HeaderMenu = props => {
 
 const BarMenu = props => {
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
+  const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
   const [isScroll, setScroll] = useState(window.scrollY > 30);
   const { redirectFn } = props;
   const handleScroll = () => {
@@ -217,6 +234,17 @@ const BarMenu = props => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const signOutGoogle = () => {
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    if (auth2 != null) {
+      auth2.signOut().then(auth2.disconnect().then(() => {
+        localLogoutMutation();
+        window.location = '/';
+        window.location.reload(true);
+      }));
+    }
+  };
 
   return (
     <SideMenuContainer>
@@ -259,6 +287,19 @@ const BarMenu = props => {
           <SideMenuTitle onClick={() => redirectFn('/auth')}>Sign in</SideMenuTitle>
         )}
       </SideMenuItem>
+      <HLine />
+      {isLoggedIn && (
+        <GoogleSignOutItem>
+          <SideMenuIcon>
+            <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="" />
+          </SideMenuIcon>
+          <GoogleLogout
+            clientId={googleClientId}
+            render={() => <SideMenuTitle onClick={signOutGoogle}>Sign out</SideMenuTitle>}
+            onLogoutSuccess={() => console.log('Successfully signed out')}
+          />
+        </GoogleSignOutItem>
+      )}
     </SideMenuContainer>
   );
 };
