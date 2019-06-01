@@ -16,6 +16,7 @@
     "react-scripts": "2.1.8",
     "react-sidebar": "^3.0.2",
     "react-sizes": "^1.0.4",
+    "react-toastify": "^5.2.1",
     "styled-components": "^4.2.0",
     "styled-icons": "^7.9.0",
     "styled-reset": "^2.0.4"

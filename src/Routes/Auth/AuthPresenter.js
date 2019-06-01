@@ -54,7 +54,7 @@ const LoadingDiv = styled.div`
   margin: 5px 0;
 `;
 
-export default ({ responseGoogle, loading }) => {
+export default ({ responseGoogle, loading, showGoogle }) => {
   return (
     <HomeContainer>
       <AuthCard>
@@ -65,25 +65,31 @@ export default ({ responseGoogle, loading }) => {
             <Loading />
           </LoadingDiv>
         ) : (
-          <GoogleLogin
-            clientId={googleClientId}
-            buttonText="Sign in with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy="single_host_origin"
-          />
+          <>
+            {showGoogle && (
+              <GoogleLogin
+                clientId={googleClientId}
+                buttonText="Sign in with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy="single_host_origin"
+              />
+            )}
+          </>
         )}
       </AuthCard>
       <ImageBox>
         <StoreImage
-          onClick={() => window.open('https://play.google.com/store/apps/details?id=com.careertalk', '_blank')}
+          onClick={() => window.open('https://play.google.com/store/apps/details?id=com.careertalk', '_blank')
+          }
           src="https://raw.githubusercontent.com/junlee91/instagram-clone/master/frontend/src/images/PlayStore.png"
         />
         <StoreImage
           onClick={() => window.open(
             'https://itunes.apple.com/us/app/careertalk-find-your-jobs/id1435448112',
             '_blank'
-          )}
+          )
+          }
           src="https://raw.githubusercontent.com/junlee91/instagram-clone/master/frontend/src/images/AppStore.png"
         />
       </ImageBox>
