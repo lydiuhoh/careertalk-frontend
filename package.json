@@ -12,6 +12,7 @@
     "react-dom": "^16.8.4",
     "react-google-login": "^5.0.4",
     "react-lines-ellipsis": "^0.14.1",
+    "react-modal": "^3.8.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-sidebar": "^3.0.2",
