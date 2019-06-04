@@ -1,9 +1,10 @@
 /* eslint no-unused-vars: "off" */
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
+import ReactModal from 'react-modal';
 
 import withRouteComponent from './withRouteComponent';
 import {
@@ -65,6 +66,9 @@ const EmployerObj = {
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
+      <Title>Modal</Title>
+      <ModalExample />
+
       <Title>Employer Card</Title>
       <EmployerGroups />
 
@@ -105,6 +109,53 @@ const Template = props => {
       <Title>Grid Templates</Title>
       <GridGroups />
     </Container>
+  );
+};
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    width: '500px',
+    transform: 'translate(-50%, -50%)'
+  }
+};
+
+const ModalContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ModalExample = () => {
+  const [modal, showModal] = useState(false);
+
+  const toggleModal = () => {
+    if (modal) {
+      showModal(false);
+    } else {
+      showModal(true);
+    }
+  };
+
+  return (
+    <TemplateContainer>
+      <button type="button" onClick={toggleModal}>
+        Trigger Modal
+      </button>
+      <ReactModal
+        style={customStyles}
+        isOpen={modal}
+        contentLabel="Minimal Modal Example"
+        ariaHideApp={false}
+      >
+        <ModalContainer>
+          <h1>Content</h1>
+          <button type="button" onClick={toggleModal}>
+            Close Modal
+          </button>
+        </ModalContainer>
+      </ReactModal>
+    </TemplateContainer>
   );
 };
 
