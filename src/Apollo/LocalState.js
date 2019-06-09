@@ -1,3 +1,7 @@
+import { toast } from 'react-toastify';
+
+const notifySuccess = (message) => toast.success(message);
+
 export const defaults = {
   isLoggedIn: Boolean(localStorage.getItem('token'))
 };
@@ -11,11 +15,12 @@ export const resolvers = {
           isLoggedIn: true
         }
       });
+      notifySuccess('🚀 Successfully signed in!');
       return null;
     },
     logUserOut: () => {
       localStorage.removeItem('token');
-      window.location = '/';
+      notifySuccess('🚀 Successfully signed out!');
       return null;
     }
   }
