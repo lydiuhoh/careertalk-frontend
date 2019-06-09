@@ -12,7 +12,10 @@ const Employers = ({ match: { params: { fairId } } }) => {
     data: { getEmployerList: employers },
     loading,
     error
-  } = useQuery(EMPLOYERS, { variables: { fairId, isUser: isLoggedIn } });
+  } = useQuery(EMPLOYERS, {
+    variables: { fairId, isUser: isLoggedIn },
+    context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+  });
 
   return <EmployerListPresenter loading={loading} employers={employers} error={error} />;
 };
