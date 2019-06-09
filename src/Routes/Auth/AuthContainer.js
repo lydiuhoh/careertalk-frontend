@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-apollo-hooks';
-import { toast } from 'react-toastify';
+import { useQuery, useMutation } from 'react-apollo-hooks';
 
 import AuthPresenter from './AuthPresenter';
 import { GOOGLE_SIGN_IN, LOCAL_LOG_IN } from './AuthQueries';
+import { ISLOGGEDIN_QUERY, LOCAL_LOG_OUT } from '../../Apollo/sharedQueries';
 
 const Auth = props => {
   const [loading, setLoading] = useState(false);
-  const [showGoogle, setGoogle] = useState(true);
   const googleSiginMutation = useMutation(GOOGLE_SIGN_IN);
   const localLoginMutation = useMutation(LOCAL_LOG_IN);
-
-  const notifySuccess = () => toast.success('🚀 Successfully signed in! Redireting..');
+  const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
+  const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
 
   const redirectToHome = () => {
     const { history: { push } } = props;
+    push('/');
+  };
 
-    notifySuccess();
-
-    setTimeout(() => {
-      push('/');
-      window.location.reload();
-    }, 2500);
+  const signoutGoogle = () => {
+    localLogoutMutation();
+    redirectToHome();
   };
 
   const responseGoogle = async res => {
@@ -38,7 +36,6 @@ const Auth = props => {
         });
         localLoginMutation({ variables: { token } });
         setLoading(false);
-        setGoogle(false);
         redirectToHome();
       } catch (error) {
         // TODO: Error handling
@@ -48,7 +45,12 @@ const Auth = props => {
   };
 
   return (
-    <AuthPresenter loading={loading} showGoogle={showGoogle} responseGoogle={responseGoogle} />
+    <AuthPresenter
+      loading={loading}
+      isLoggedIn={isLoggedIn}
+      responseGoogle={responseGoogle}
+      signoutGoogle={signoutGoogle}
+    />
   );
 };
 

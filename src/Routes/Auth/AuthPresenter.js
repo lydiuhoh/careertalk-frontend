@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 
 import { Container, Card, Loading } from '../../Components/commons';
@@ -54,7 +54,7 @@ const LoadingDiv = styled.div`
   margin: 5px 0;
 `;
 
-export default ({ responseGoogle, loading, showGoogle }) => {
+export default ({ responseGoogle, loading, isLoggedIn, signoutGoogle }) => {
   return (
     <HomeContainer>
       <AuthCard>
@@ -66,7 +66,13 @@ export default ({ responseGoogle, loading, showGoogle }) => {
           </LoadingDiv>
         ) : (
           <>
-            {showGoogle && (
+            {isLoggedIn ? (
+              <GoogleLogout
+                clientId={googleClientId}
+                buttonText="Sign out"
+                onLogoutSuccess={signoutGoogle}
+              />
+            ) : (
               <GoogleLogin
                 clientId={googleClientId}
                 buttonText="Sign in with Google"
