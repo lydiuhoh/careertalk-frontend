@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from 'react-sidebar';
 import withSizes from 'react-sizes';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../Components/Header';
@@ -20,7 +21,7 @@ const Content = styled.div`
   margin: 0 auto;
 `;
 
-const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
+const withRouteComponent = WrappedComponent => withRouter(withSizes(mapSizesToProps)(
   class RouteComponent extends React.Component {
       state = {
         isMenuOpen: false,
@@ -36,9 +37,13 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
       };
 
       redirectFn = path => {
-        const { history: { push } } = this.props;
+        const { history: { push } = {} } = this.props;
 
-        push(path);
+        if (push && typeof push === 'function') {
+          push(path);
+        } else {
+          window.location = path;
+        }
       };
 
       componentWillReceiveProps = props => {
@@ -96,6 +101,6 @@ const withRouteComponent = WrappedComponent => withSizes(mapSizesToProps)(
         );
       }
   }
-);
+));
 
 export default withRouteComponent;
