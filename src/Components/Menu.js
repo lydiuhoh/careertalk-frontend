@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from 'react-apollo-hooks';
+import { useQuery, useMutation, useApolloClient } from 'react-apollo-hooks';
 import { GoogleLogout } from 'react-google-login';
 
 import styled from 'styled-components';
@@ -144,6 +144,7 @@ const HLine = styled.hr`
 `;
 
 const HeaderMenu = props => {
+  const client = useApolloClient();
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
   const { redirectFn } = props;
@@ -153,9 +154,11 @@ const HeaderMenu = props => {
     if (auth2 != null) {
       auth2.signOut().then(auth2.disconnect().then(() => {
         localLogoutMutation();
-        window.location = '/';
-        window.location.reload(true);
+        client.resetStore();
       }));
+    } else {
+      localLogoutMutation();
+      client.resetStore();
     }
   };
 
@@ -212,10 +215,11 @@ const HeaderMenu = props => {
 };
 
 const BarMenu = props => {
+  const client = useApolloClient();
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
   const [isScroll, setScroll] = useState(window.scrollY > 30);
-  const { redirectFn } = props;
+  const { redirectFn, toggleMenu } = props;
   const handleScroll = () => {
     const scrollHeight = window.scrollY;
     if (scrollHeight > 30) {
@@ -240,9 +244,13 @@ const BarMenu = props => {
     if (auth2 != null) {
       auth2.signOut().then(auth2.disconnect().then(() => {
         localLogoutMutation();
-        window.location = '/';
-        window.location.reload(true);
+        client.resetStore();
+        toggleMenu();
       }));
+    } else {
+      localLogoutMutation();
+      client.resetStore();
+      toggleMenu();
     }
   };
 
