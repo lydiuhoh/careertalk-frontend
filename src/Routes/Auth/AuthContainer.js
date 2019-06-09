@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation } from 'react-apollo-hooks';
+import { useQuery, useMutation, useApolloClient } from 'react-apollo-hooks';
 
 import AuthPresenter from './AuthPresenter';
 import { GOOGLE_SIGN_IN, LOCAL_LOG_IN } from './AuthQueries';
 import { ISLOGGEDIN_QUERY, LOCAL_LOG_OUT } from '../../Apollo/sharedQueries';
 
 const Auth = props => {
+  const client = useApolloClient();
   const [loading, setLoading] = useState(false);
   const googleSiginMutation = useMutation(GOOGLE_SIGN_IN);
   const localLoginMutation = useMutation(LOCAL_LOG_IN);
@@ -19,6 +20,7 @@ const Auth = props => {
 
   const signoutGoogle = () => {
     localLogoutMutation();
+    client.resetStore();
     redirectToHome();
   };
 
