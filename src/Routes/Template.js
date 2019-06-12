@@ -31,6 +31,7 @@ import {
 import useInput from '../Hooks/useInput';
 import FairCard from '../Components/FairCard';
 import EmployerCard from '../Components/EmployerCard';
+import { CrossIcon } from '../Components/Icons';
 
 const FairObj = {
   organization_id: 1,
@@ -116,7 +117,7 @@ const customStyles = {
   content: {
     top: '50%',
     left: '50%',
-    width: '500px',
+    minWidth: '500px',
     transform: 'translate(-50%, -50%)'
   }
 };
@@ -124,6 +125,14 @@ const customStyles = {
 const ModalContainer = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const ModalContent = styled.div`
+  padding: 15px 0;
+`;
+
+const CrossContainer = styled.div`
+  cursor: pointer;
 `;
 
 const ModalExample = () => {
@@ -149,10 +158,22 @@ const ModalExample = () => {
         ariaHideApp={false}
       >
         <ModalContainer>
-          <h1>Content</h1>
-          <button type="button" onClick={toggleModal}>
-            Close Modal
-          </button>
+          <h1>Title</h1>
+          <CrossContainer onClick={toggleModal}>
+            <CrossIcon />
+          </CrossContainer>
+        </ModalContainer>
+        <ModalContainer>
+          <ModalContent>
+            <h1>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </h1>
+          </ModalContent>
         </ModalContainer>
       </ReactModal>
     </TemplateContainer>
