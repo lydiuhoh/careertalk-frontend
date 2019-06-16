@@ -13,6 +13,7 @@ const Card = styled(BaseCard)`
   align-items: flex-start;
   cursor: pointer;
   padding: ${props => (props.size === 'sm' ? '10px' : '15px')};
+  padding-bottom: 5px;
 `;
 
 const ImageBox = styled(LogoImage)``;
@@ -32,7 +33,7 @@ const Content = styled.div`
 `;
 
 const CompanyTitle = styled.h1`
-  font-size: 23px;
+  font-size: 20px;
   font-weight: bold;
   color: ${props => props.theme.blueColor};
   padding-bottom: 5px;
@@ -59,7 +60,6 @@ const DetailContent = styled.div`
 `;
 
 const DetailInfoContainer = styled.div`
-  padding-bottom: 5px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -76,9 +76,7 @@ const DetailInfoContainer = styled.div`
 // `;
 
 const CardActions = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 5px;
+  position: relative;
   display: flex;
   align-items: center;
 `;
@@ -89,6 +87,7 @@ export default ({
   employer,
   isLiked,
   toggleLike,
+  onCardClick,
   hiringMajors,
   hiringTypes,
   visaSupport,
@@ -99,10 +98,10 @@ export default ({
   const majors = hiringMajors.join(', ');
 
   return (
-    <Card size={size}>
+    <Card size={size} onClick={onCardClick}>
       <LogoAndContent>
         <ImageBox url={employer.company_url} size="sm" />
-        <Content onClick={() => console.log(`Clicked ${employer.name}`)}>
+        <Content>
           <CompanyTitle>
             {employer.name} {featured && <span>Featured</span>}
           </CompanyTitle>
