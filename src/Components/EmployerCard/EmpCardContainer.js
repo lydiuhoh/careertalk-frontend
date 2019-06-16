@@ -21,10 +21,12 @@ const propTypes = exact({
   size: PropTypes.string,
   featured: PropTypes.bool,
   isLiked: PropTypes.bool,
+  __typename: PropTypes.string,
 });
 
 const EmpCardContainer = props => {
   const [isLikedS, setIsLiked] = useState(props.isLiked);
+  const { employer, hiring_majors, hiring_types, visa_support, size, featured } = props;
 
   const toggleLike = () => {
     if (isLikedS) {
@@ -36,13 +38,21 @@ const EmpCardContainer = props => {
     }
   };
 
-  const { employer, hiring_majors, hiring_types, visa_support, size, featured } = props;
+  const onCardClick = (event) => {
+    const { target: { nodeName } } = event;
+
+    if (nodeName !== 'svg' && nodeName !== 'path') {
+      console.log(`Clicked ${employer.name}`);
+      // TODO: Open Employer Detail Modal
+    }
+  };
 
   return (
     <EmpCardPresenter
       employer={employer}
       isLiked={isLikedS}
       toggleLike={toggleLike}
+      onCardClick={onCardClick}
       hiringMajors={hiring_majors}
       hiringTypes={hiring_types}
       visaSupport={visa_support}

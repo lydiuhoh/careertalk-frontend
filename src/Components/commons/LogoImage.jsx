@@ -43,6 +43,7 @@ const getLogoSize = (size) => {
   }
 };
 
+// TODO: Better error handling
 const LogoImage = ({ url, size = 'lg', className }) => (
   <LogoContainer
     src={`https://logo.clearbit.com/${url}?size=${getLogoSize(size)}`}

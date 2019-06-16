@@ -11,3 +11,13 @@ export const LOCAL_LOG_OUT = gql`
     logUserOut @client
   }
 `;
+
+export const ME = gql`
+  query me {
+    me {
+      personal_email
+      profile_url
+      full_name
+    }
+  }
+`;

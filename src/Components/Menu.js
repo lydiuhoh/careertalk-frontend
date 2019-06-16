@@ -4,7 +4,7 @@ import { GoogleLogout } from 'react-google-login';
 
 import styled from 'styled-components';
 
-import { ISLOGGEDIN_QUERY, LOCAL_LOG_OUT } from '../Apollo/sharedQueries';
+import { ISLOGGEDIN_QUERY, LOCAL_LOG_OUT, ME } from '../Apollo/sharedQueries';
 import { MapIcon, FlagIcon, FavoriteListIcon, FairsListIcon, ArrowRightIcon } from './Icons';
 import { Avatar } from './commons';
 import AppConfig from '../config.json';
@@ -147,6 +147,10 @@ const HeaderMenu = props => {
   const client = useApolloClient();
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
+  const { data: getMe } = useQuery(ME, {
+    skip: !isLoggedIn,
+    context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+  });
   const { redirectFn } = props;
 
   const signOutGoogle = () => {
@@ -191,7 +195,7 @@ const HeaderMenu = props => {
       <MenuItem>
         {isLoggedIn ? (
           <Dropdown>
-            <UserAvatar url="" size={40} />
+            <UserAvatar url={getMe && getMe.me ? getMe.me.profile_url : ''} size={40} />
             <DropdownContent className="dropdown-content">
               <DropdownItem>
                 <SideMenuTitle>View My Profile</SideMenuTitle>
@@ -218,6 +222,10 @@ const BarMenu = props => {
   const client = useApolloClient();
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const localLogoutMutation = useMutation(LOCAL_LOG_OUT);
+  const { data: getMe } = useQuery(ME, {
+    skip: !isLoggedIn,
+    context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+  });
   const [isScroll, setScroll] = useState(window.scrollY > 30);
   const { redirectFn, toggleMenu } = props;
   const handleScroll = () => {
@@ -288,8 +296,8 @@ const BarMenu = props => {
       <SideMenuItem>
         {isLoggedIn ? (
           <>
-            <Avatar url="" />
-            <MeTitle>Me</MeTitle>
+            <Avatar url={getMe && getMe.me ? getMe.me.profile_url : ''} />
+            <MeTitle>{getMe && getMe.me && getMe.me.full_name}</MeTitle>
           </>
         ) : (
           <SideMenuTitle onClick={() => redirectFn('/auth')}>Sign in</SideMenuTitle>

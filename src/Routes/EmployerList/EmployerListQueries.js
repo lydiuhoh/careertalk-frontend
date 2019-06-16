@@ -9,7 +9,9 @@ export const EMPLOYERS = gql`
       tables,
       visa_support,
       employer {
+        id
         name
+        company_url
       }
     }
   }
