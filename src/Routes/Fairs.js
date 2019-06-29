@@ -4,7 +4,7 @@ import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 
 import withRouteComponent from './withRouteComponent';
-import { Container, LoadingLogo, GridSix } from '../Components/commons';
+import { Container, LoadingLogo } from '../Components/commons';
 import FairCard from '../Components/FairCard';
 import { ErrorBox } from './ErrorFallback';
 
@@ -23,7 +23,9 @@ const FAIRS = gql`
   }
 `;
 
-const FairsContainer = styled(Container)``;
+const FairsContainer = styled(Container)`
+  padding: 15px 50px;
+`;
 
 const Wrapper = styled.div``;
 
@@ -32,9 +34,10 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `;
 
-const FairListGrid = styled(GridSix)`
+const FairListGrid = styled.div`
+  display: grid;
   grid-auto-rows: auto;
-  grid-gap: 15px;
+  grid-gap: 20px;
   grid-template-columns: repeat(auto-fit, 350px);
   justify-content: center;
   align-items: center;
