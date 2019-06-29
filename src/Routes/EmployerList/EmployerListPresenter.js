@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import withRouteComponent from '../withRouteComponent';
-import { Container, LoadingLogo, GridSeven } from '../../Components/commons';
-import EmployerCard from '../../Components/EmployerCard';
+import { Container, LoadingLogo } from '../../Components/commons';
 import { ErrorBox } from '../ErrorFallback';
 
 const EmployerListContainer = styled(Container)``;
@@ -11,13 +10,6 @@ const EmployerListContainer = styled(Container)``;
 const LoadingWrapper = styled.div`
   display: grid;
   justify-content: center;
-`;
-
-const EmployerListGrid = styled(GridSeven)`
-  margin-top: 15px;
-  grid-auto-rows: minmax(100px, auto);
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 `;
 
 const EmployerListPresenter = ({ loading, employers, error }) => {
@@ -35,9 +27,7 @@ const EmployerListPresenter = ({ loading, employers, error }) => {
 };
 
 const EmployerListContent = ({ employers }) => (
-  <EmployerListGrid>
-    {employers.map(emp => <EmployerCard key={emp.employer.id} {...emp} />)}
-  </EmployerListGrid>
+  <h1>Showing {employers.length} employers</h1>
 );
 
 export default withRouteComponent(EmployerListPresenter);

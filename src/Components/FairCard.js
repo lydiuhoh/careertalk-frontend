@@ -11,6 +11,7 @@ const BaseFairCard = styled(BaseCard)`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  height: 350px;
 `;
 
 const NumOfEmployers = styled.div`
