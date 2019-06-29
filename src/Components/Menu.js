@@ -156,10 +156,15 @@ const HeaderMenu = props => {
   const signOutGoogle = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
     if (auth2 != null) {
-      auth2.signOut().then(auth2.disconnect().then(() => {
+      if (auth2.isSignedIn.get()) {
+        auth2.signOut().then(auth2.disconnect().then(() => {
+          localLogoutMutation();
+          client.resetStore();
+        }));
+      } else {
         localLogoutMutation();
         client.resetStore();
-      }));
+      }
     } else {
       localLogoutMutation();
       client.resetStore();
@@ -250,11 +255,17 @@ const BarMenu = props => {
   const signOutGoogle = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
     if (auth2 != null) {
-      auth2.signOut().then(auth2.disconnect().then(() => {
+      if (auth2.isSignedIn.get()) {
+        auth2.signOut().then(auth2.disconnect().then(() => {
+          localLogoutMutation();
+          client.resetStore();
+          toggleMenu();
+        }));
+      } else {
         localLogoutMutation();
         client.resetStore();
         toggleMenu();
-      }));
+      }
     } else {
       localLogoutMutation();
       client.resetStore();
