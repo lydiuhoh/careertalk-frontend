@@ -4,16 +4,17 @@ import styled from 'styled-components';
 import withRouteComponent from '../withRouteComponent';
 import { Container, LoadingLogo } from '../../Components/commons';
 import EmployerCard from '../../Components/EmployerCard';
+import EmployerModal from '../../Components/EmployerModal';
 import { ErrorBox } from '../ErrorFallback';
 
-const EmployerListContainer = styled(Container)``;
-
-const LoadingWrapper = styled.div`
-  display: grid;
-  justify-content: center;
-`;
-
-const EmployerListPresenter = ({ loading, employerList, error }) => {
+const EmployerListPresenter = ({
+  loading,
+  selectedCompany,
+  showModal,
+  toggleModal,
+  employerList,
+  error
+}) => {
   return (
     <EmployerListContainer>
       {error && <ErrorBox message={error.message} />}
@@ -23,20 +24,40 @@ const EmployerListPresenter = ({ loading, employerList, error }) => {
         </LoadingWrapper>
       )}
       {!loading && !error && (
-        <EmployerListContent fair={employerList.fair} employers={employerList.companies} />
+        <EmployerListContent
+          fair={employerList.fair}
+          toggleModal={toggleModal}
+          employers={employerList.companies}
+        />
+      )}
+      {showModal && (
+        <EmployerModal
+          selectedCompany={selectedCompany}
+          modal={showModal}
+          toggleModal={toggleModal}
+        />
       )}
     </EmployerListContainer>
   );
 };
 
-const EmployerListContent = ({ fair, employers }) => (
+const EmployerListContent = ({ fair, employers, toggleModal }) => (
   <>
     <FairTitle>{fair.name}</FairTitle>
     <EmployerListGrid>
-      {employers.map(employer => <EmployerCard key={employer.id} {...employer} />)}
+      {employers.map(employer => (
+        <EmployerCard key={employer.id} toggleModal={toggleModal} {...employer} />
+      ))}
     </EmployerListGrid>
   </>
 );
+
+const EmployerListContainer = styled(Container)``;
+
+const LoadingWrapper = styled.div`
+  display: grid;
+  justify-content: center;
+`;
 
 const FairTitle = styled.h1`
   font-size: 24px;
