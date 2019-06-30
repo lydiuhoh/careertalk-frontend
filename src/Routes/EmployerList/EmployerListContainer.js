@@ -22,6 +22,10 @@ const Employers = ({ match: { params: { fairId } } }) => {
     context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
   });
 
+  /**
+   * Method for showing popup modal
+   * @param {Object} selected - selected employer object
+   */
   const toggleModal = ({ selected }) => {
     if (modalS) {
       showModal(false);
@@ -32,11 +36,17 @@ const Employers = ({ match: { params: { fairId } } }) => {
     setCompanySelection(selected);
   };
 
+  // TODO: Like API request + comment
+  const toggleLike = (props) => {
+    console.log(props);
+  };
+
   return (
     <EmployerListPresenter
       loading={loading}
       showModal={modalS}
       toggleModal={toggleModal}
+      toggleLike={toggleLike}
       employerList={employerList}
       selectedCompany={selectedCompany}
       error={error}

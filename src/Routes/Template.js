@@ -200,8 +200,8 @@ const ModalExample = () => {
 const EmployerGroups = () => {
   return (
     <GridContainer>
-      <EmployerCard {...EmployerObj} featured />
-      <EmployerCard {...EmployerObj2} />
+      <EmployerCard {...EmployerObj} featured toggleLike={() => {}} toggleModal={() => {}} />
+      <EmployerCard {...EmployerObj2} toggleLike={() => {}} toggleModal={() => {}} />
     </GridContainer>
   );
 };

@@ -12,6 +12,7 @@ const EmployerListPresenter = ({
   selectedCompany,
   showModal,
   toggleModal,
+  toggleLike,
   employerList,
   error
 }) => {
@@ -27,6 +28,7 @@ const EmployerListPresenter = ({
         <EmployerListContent
           fair={employerList.fair}
           toggleModal={toggleModal}
+          toggleLike={toggleLike}
           employers={employerList.companies}
         />
       )}
@@ -41,12 +43,17 @@ const EmployerListPresenter = ({
   );
 };
 
-const EmployerListContent = ({ fair, employers, toggleModal }) => (
+const EmployerListContent = ({ fair, employers, toggleModal, toggleLike }) => (
   <>
     <FairTitle>{fair.name}</FairTitle>
     <EmployerListGrid>
       {employers.map(employer => (
-        <EmployerCard key={employer.id} toggleModal={toggleModal} {...employer} />
+        <EmployerCard
+          key={employer.id}
+          toggleModal={toggleModal}
+          toggleLike={toggleLike}
+          {...employer}
+        />
       ))}
     </EmployerListGrid>
   </>

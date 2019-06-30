@@ -70,7 +70,7 @@ export default ({
   employer,
   isLiked,
   isNoted,
-  toggleLike,
+  onCardLike,
   onCardClick,
   hiringMajors,
   hiringTypes,
@@ -122,7 +122,7 @@ export default ({
         <NoteWrapper visible={isNoted}>
           <NoteIcon />
         </NoteWrapper>
-        <HeartButtonExt isLiked={isLiked} onClick={toggleLike} />
+        <HeartButtonExt isLiked={isLiked} onClick={onCardLike} />
       </CardActions>
     </Card>
   );

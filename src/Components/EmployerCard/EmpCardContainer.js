@@ -23,7 +23,8 @@ const propTypes = exact({
   featured: PropTypes.bool,
   is_liked: PropTypes.bool,
   is_noted: PropTypes.bool,
-  toggleModal: PropTypes.func,
+  toggleModal: PropTypes.func.isRequired,
+  toggleLike: PropTypes.func.isRequired,
   __typename: PropTypes.string
 });
 
@@ -37,19 +38,22 @@ const EmpCardContainer = props => {
     size,
     featured,
     is_noted,
-    toggleModal
+    toggleModal,
+    toggleLike,
   } = props;
 
-  const toggleLike = () => {
+  /** set isLiked state and call method defined in EmployerListContainer  */
+  const onCardLike = () => {
     if (isLikedS) {
-      console.log('Unlike!!');
       setIsLiked(!isLikedS);
+      toggleLike({ id: props.id, liked: false });
     } else {
-      console.log('Like this!!');
       setIsLiked(!isLikedS);
+      toggleLike({ id: props.id, liked: true });
     }
   };
 
+  /** call toggleModal method defined in EmployerListContainer */
   const onCardClick = event => {
     const {
       target: { nodeName }
@@ -65,7 +69,7 @@ const EmpCardContainer = props => {
       employer={employer}
       isLiked={isLikedS}
       isNoted={is_noted}
-      toggleLike={toggleLike}
+      onCardLike={onCardLike}
       onCardClick={onCardClick}
       hiringMajors={hiring_majors}
       hiringTypes={hiring_types}
