@@ -37,12 +37,10 @@ const CompanyTitle = styled.h1`
     font-size: 12px;
     color: ${props => props.theme.yellowColor};
   }
-  margin: 0 3px;
+  margin: 3px;
 `;
 
-const DetailContent = styled.div`
-  padding: 5px 0;
-`;
+const DetailContent = styled.div``;
 
 const DetailInfoContainer = styled.div`
   display: flex;

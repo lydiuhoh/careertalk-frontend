@@ -9,7 +9,7 @@ import withRouteComponent from '../withRouteComponent';
 const Employers = ({ match: { params: { fairId } } }) => {
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const {
-    data: { getEmployerList: employers },
+    data: { getEmployerList: employerList },
     loading,
     error
   } = useQuery(EMPLOYERS, {
@@ -17,7 +17,9 @@ const Employers = ({ match: { params: { fairId } } }) => {
     context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
   });
 
-  return <EmployerListPresenter loading={loading} employers={employers} error={error} />;
+  return (
+    <EmployerListPresenter loading={loading} employerList={employerList} error={error} />
+  );
 };
 
 export default withRouteComponent(Employers);
