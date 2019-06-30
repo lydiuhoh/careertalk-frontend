@@ -21,8 +21,8 @@ const propTypes = exact({
   visa_support: PropTypes.string.isRequired,
   size: PropTypes.string,
   featured: PropTypes.bool,
-  is_liked: PropTypes.bool.isRequired,
-  is_noted: PropTypes.bool.isRequired,
+  is_liked: PropTypes.bool,
+  is_noted: PropTypes.bool,
   __typename: PropTypes.string,
 });
 
