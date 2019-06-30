@@ -45,22 +45,39 @@ const FairObj = {
 };
 
 const EmployerObj = {
-  careerfair_id: 1,
+  careerfair_id: 'ef6619ec-7a13-4322-943a-2611e113b722',
+  degree_requirements: ['BS'],
+  employer: {
+    company_url: 'idot.illinois.gov',
+    description: null,
+    found_year: null,
+    hq_city: null,
+    id: '10ca7236-cd4c-44be-a472-79bf4393e87e',
+    logo_url: 'default_employer.png',
+    name: 'Illinois Department of Transportation.'
+  },
+  hiring_majors: ['Civil', 'CompE', 'CS', 'EE', 'IE', 'ME'],
+  hiring_types: ['INT', 'FT'],
+  id: '74ac9ff7-8ac6-480d-8ee3-bc9a32c1fd92',
+  is_liked: false,
+  is_noted: false,
+  tables: [],
+  visa_support: 'yes'
+};
+
+const EmployerObj2 = {
   degree_requirements: ['BS', 'MS'],
   hiring_majors: ['CS'],
   hiring_types: ['INT', 'FT'],
-  tables: [1, 2],
-  visa_support: 'yes',
+  tables: [],
+  visa_support: 'no',
+  careerfair_id: 'ef6619ec-7a13-4322-943a-2611e113b722',
+  is_liked: true,
+  is_noted: true,
   employer: {
-    company_url: 'actico.com',
-    industry: 'Information Technology and Services',
-    description:
-      'ACTICO is a leading international provider of software solutions and technologies for decision management.',
-    found_year: null,
-    hq_city: null,
-    id: 10,
-    logo_url: 'default_employer.png',
-    name: 'ACTICO'
+    id: 'e7d7b88f-1404-43a9-abf0-88c90e288cf4',
+    name: 'iManage',
+    company_url: 'imanage.com'
   }
 };
 
@@ -180,26 +197,11 @@ const ModalExample = () => {
   );
 };
 
-const EmployerGrid = styled(GridSix)`
-  grid-auto-rows: minmax(150px, auto);
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-`;
-
-const EmployerGridSmall = styled(GridSeven)`
-  margin-top: 15px;
-  grid-auto-rows: minmax(80px, auto);
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-`;
-
 const EmployerGroups = () => {
   return (
     <GridContainer>
-      <EmployerGridSmall>
-        <EmployerCard {...EmployerObj} size="sm" />
-        <EmployerCard {...EmployerObj} size="sm" featured isLiked />
-      </EmployerGridSmall>
+      <EmployerCard {...EmployerObj} featured />
+      <EmployerCard {...EmployerObj2} />
     </GridContainer>
   );
 };

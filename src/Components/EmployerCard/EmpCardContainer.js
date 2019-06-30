@@ -8,7 +8,8 @@ import exact from 'prop-types-exact';
 import EmpCardPresenter from './EmpCardPresenter';
 
 const propTypes = exact({
-  careerfair_id: PropTypes.number,
+  id: PropTypes.string,
+  careerfair_id: PropTypes.string,
   degree_requirements: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   employer: PropTypes.shape({
     company_url: PropTypes.string.isRequired,
@@ -20,13 +21,14 @@ const propTypes = exact({
   visa_support: PropTypes.string.isRequired,
   size: PropTypes.string,
   featured: PropTypes.bool,
-  isLiked: PropTypes.bool,
+  is_liked: PropTypes.bool.isRequired,
+  is_noted: PropTypes.bool.isRequired,
   __typename: PropTypes.string,
 });
 
 const EmpCardContainer = props => {
-  const [isLikedS, setIsLiked] = useState(props.isLiked);
-  const { employer, hiring_majors, hiring_types, visa_support, size, featured } = props;
+  const [isLikedS, setIsLiked] = useState(props.is_liked);
+  const { employer, hiring_majors, hiring_types, visa_support, size, featured, is_noted } = props;
 
   const toggleLike = () => {
     if (isLikedS) {
@@ -51,6 +53,7 @@ const EmpCardContainer = props => {
     <EmpCardPresenter
       employer={employer}
       isLiked={isLikedS}
+      isNoted={is_noted}
       toggleLike={toggleLike}
       onCardClick={onCardClick}
       hiringMajors={hiring_majors}
