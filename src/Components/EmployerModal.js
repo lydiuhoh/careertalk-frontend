@@ -120,12 +120,12 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
+    top: '100px',
+    left: '0',
+    right: '0',
     width: '95%',
+    margin: 'auto',
     maxWidth: '700px',
-    minHeight: '650px',
-    transform: 'translate(-50%, -50%)',
     border: '1.5px solid rgb(204, 204, 204)'
   }
 };
