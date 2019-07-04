@@ -23,6 +23,8 @@ const BadgeContainer = styled.div`
         return props.theme.hiringTypeColor;
       case 'major':
         return props.theme.majorTypeColor;
+      case 'degree':
+        return props.theme.degreeTypeColor;
       case 'visa':
       default:
         return props.theme.sponsorColor;

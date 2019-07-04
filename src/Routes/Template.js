@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
-import ReactModal from 'react-modal';
 
 import withRouteComponent from './withRouteComponent';
 import {
@@ -31,6 +30,7 @@ import {
 import useInput from '../Hooks/useInput';
 import FairCard from '../Components/FairCard';
 import EmployerCard from '../Components/EmployerCard';
+import EmployerModal from '../Components/EmployerModal';
 import { CrossIcon } from '../Components/Icons';
 
 const FairObj = {
@@ -168,31 +168,14 @@ const ModalExample = () => {
       <button type="button" onClick={toggleModal}>
         Trigger Modal
       </button>
-      <ReactModal
-        style={customStyles}
-        isOpen={modal}
-        contentLabel="Minimal Modal Example"
-        ariaHideApp={false}
-      >
-        <ModalContainer>
-          <h1>Title</h1>
-          <CrossContainer onClick={toggleModal}>
-            <CrossIcon />
-          </CrossContainer>
-        </ModalContainer>
-        <ModalContainer>
-          <ModalContent>
-            <h1>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </h1>
-          </ModalContent>
-        </ModalContainer>
-      </ReactModal>
+      {modal && (
+        <EmployerModal
+          selectedCompany={EmployerObj}
+          selectedFair={FairObj}
+          modal
+          toggleModal={toggleModal}
+        />
+      )}
     </TemplateContainer>
   );
 };

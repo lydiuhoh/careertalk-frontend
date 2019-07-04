@@ -35,6 +35,7 @@ const EmployerListPresenter = ({
       {showModal && (
         <EmployerModal
           selectedCompany={selectedCompany}
+          selectedFair={employerList.fair}
           modal={showModal}
           toggleModal={toggleModal}
         />

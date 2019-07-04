@@ -21,6 +21,9 @@ export const EMPLOYERS = gql`
       }
       fair {
         name
+        date
+        start_time
+        end_time
       }
     }
   }
