@@ -43,13 +43,19 @@ const EmpCardContainer = props => {
   } = props;
 
   /** set isLiked state and call method defined in EmployerListContainer  */
-  const onCardLike = () => {
+  const onCardLike = async () => {
+    let result;
     if (isLikedS) {
       setIsLiked(!isLikedS);
-      toggleLike({ id: props.id, liked: false });
+      result = await toggleLike({ employerId: employer.id, name: employer.name, liked: false });
     } else {
       setIsLiked(!isLikedS);
-      toggleLike({ id: props.id, liked: true });
+      result = await toggleLike({ employerId: employer.id, name: employer.name, liked: true });
+    }
+
+    // if toggle like request fails, revert back to original state
+    if (!result) {
+      setIsLiked(isLikedS);
     }
   };
 

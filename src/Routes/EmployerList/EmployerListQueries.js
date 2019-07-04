@@ -20,11 +20,21 @@ export const EMPLOYERS = gql`
         }
       }
       fair {
+        id
         name
         date
         start_time
         end_time
       }
+    }
+  }
+`;
+
+export const TOGGLE_LIKE = gql`
+  mutation toggleLike($fairId: String, $employerId: String) {
+    likeEmployer(fairId: $fairId, employerId: $employerId) {
+      message
+      status
     }
   }
 `;

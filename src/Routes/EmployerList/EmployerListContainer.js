@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery, useMutation } from 'react-apollo-hooks';
+import { toast } from 'react-toastify';
 
 import { ISLOGGEDIN_QUERY } from '../../Apollo/sharedQueries';
-import { EMPLOYERS } from './EmployerListQueries';
+import { EMPLOYERS, TOGGLE_LIKE } from './EmployerListQueries';
 import EmployerListPresenter from './EmployerListPresenter';
 import withRouteComponent from '../withRouteComponent';
 
@@ -21,6 +22,7 @@ const Employers = ({ match: { params: { fairId } } }) => {
     variables: { fairId, isUser: isLoggedIn },
     context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
   });
+  const toggleLikeMutation = useMutation(TOGGLE_LIKE);
 
   /**
    * Method for showing popup modal
@@ -36,9 +38,26 @@ const Employers = ({ match: { params: { fairId } } }) => {
     setCompanySelection(selected);
   };
 
-  // TODO: Like API request + comment
-  const toggleLike = (props) => {
-    console.log(props);
+  const toggleLike = async (props) => {
+    const { fair: { id: fairId } } = employerList;
+    const { employerId, name } = props;
+
+    try {
+      const {
+        data: {
+          likeEmployer: { message, status }
+        },
+      } = await toggleLikeMutation({ variables: { fairId, employerId } });
+      if (status) {
+        toast.success(`${message} ${name}`);
+        return true;
+      }
+    } catch (error) {
+      toast.error(`Failed to like an employer ${name}. Please try again.`);
+      console.error(error.message);
+      return false;
+    }
+    return false;
   };
 
   return (
