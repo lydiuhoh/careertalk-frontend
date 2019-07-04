@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
 
-import { fadeIn } from './styles';
+import { fadeIn, onActive } from './styles';
 
 const propTypes = exact({
   value: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 });
 
 const BadgeContainer = styled.div`
@@ -35,14 +36,15 @@ const BadgeContainer = styled.div`
   font-size: 13px;
   animation: 1s ${fadeIn} ease-out;
   margin: 3px;
+  ${props => props.type === 'button' && onActive};
 `;
 
 const BadgeText = styled.p`
   font-size: 11px;
 `;
 
-const Badge = ({ value, type }) => (
-  <BadgeContainer type={type}>
+const Badge = ({ value, type, onClick }) => (
+  <BadgeContainer type={type} onClick={onClick}>
     <BadgeText>{value}</BadgeText>
   </BadgeContainer>
 );

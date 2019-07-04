@@ -9,6 +9,7 @@
     "prop-types-exact": "^1.2.0",
     "react": "^16.8.4",
     "react-apollo-hooks": "^0.4.5",
+    "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.8.4",
     "react-google-login": "^5.0.4",
     "react-lines-ellipsis": "^0.14.1",
