@@ -76,7 +76,7 @@ const EmployerListGrid = styled.div`
   display: grid;
   grid-auto-rows: auto;
   grid-gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   justify-content: center;
   align-items: center;
   padding: 20px 0;
