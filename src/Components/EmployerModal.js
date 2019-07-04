@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
+import TextareaAutosize from 'react-autosize-textarea';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
@@ -19,6 +20,8 @@ const propTypes = exact({
 });
 
 const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) => {
+  const [note, takeNote] = useState('');
+  const [isNoteTaking, setIsNoteTaking] = useState(false);
   const {
     degree_requirements,
     hiring_majors,
@@ -28,6 +31,21 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
   const fairDate = new Date(selectedFair.date).toDateString();
   const timeString = `${selectedFair.start_time} - ${selectedFair.end_time}`;
   const dateString = `${fairDate} ${timeString}`;
+
+  const onTextChange = event => {
+    const {
+      target: { value }
+    } = event;
+    takeNote(value);
+
+    if (!isNoteTaking) {
+      setIsNoteTaking(true);
+    }
+  };
+
+  const saveNote = () => {
+    console.log(`Saving.. ${note}`);
+  };
 
   return (
     <ReactModal
@@ -48,11 +66,18 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
           <h1 style={{ padding: '5px', fontSize: '20px', textAlign: 'center' }}>{name}</h1>
         </ModalContent>
         <ModalContent>
-          <h1>Note Box</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-          </p>
+          <TextareaAutosize
+            rows={3}
+            style={{ boxSizing: 'border-box', fontSize: '17px' }}
+            placeholder="Take note"
+            value={note}
+            onChange={onTextChange}
+          />
+          {isNoteTaking && (
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5px' }}>
+              <Badge value="Save" type="button" onClick={saveNote} />
+            </div>
+          )}
         </ModalContent>
         <ModalContent>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -99,7 +124,7 @@ const customStyles = {
     left: '50%',
     width: '95%',
     maxWidth: '700px',
-    minHeight: '600px',
+    minHeight: '650px',
     transform: 'translate(-50%, -50%)',
     border: '1.5px solid rgb(204, 204, 204)'
   }
