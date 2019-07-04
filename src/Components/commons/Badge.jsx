@@ -23,6 +23,8 @@ const BadgeContainer = styled.div`
         return props.theme.hiringTypeColor;
       case 'major':
         return props.theme.majorTypeColor;
+      case 'degree':
+        return props.theme.degreeTypeColor;
       case 'visa':
       default:
         return props.theme.sponsorColor;
@@ -32,8 +34,7 @@ const BadgeContainer = styled.div`
   color: white;
   font-size: 13px;
   animation: 1s ${fadeIn} ease-out;
-  margin-right: 5px;
-  margin-bottom: 3px;
+  margin: 3px;
 `;
 
 const BadgeText = styled.p`

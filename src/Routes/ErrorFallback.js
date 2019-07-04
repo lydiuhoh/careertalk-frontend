@@ -63,15 +63,16 @@ const ServerError = () => (
     <WellText>Well, this is unexpected...</WellText>
     <HintText>Error code: 500</HintText>
     <HintText>
-      An error has occurred and we're working to fix the problem! We'll be up and runing shortly.
+      An error has occurred and we're working to fix the problem! We'll be up and running shortly.
     </HintText>
-    <HintText>
+    {/* TODO: Send Email */}
+    {/* <HintText>
       Please report the error to our developers and thanks for your patience!
     </HintText>
     <ErrorButton
       value="Report Error"
       onClick={() => console.log('TODO: send email to developers')}
-    />
+    /> */}
   </ServerErrorContainer>
 );
 

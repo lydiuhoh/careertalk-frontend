@@ -8,6 +8,7 @@ const theme = {
   heartButtonColor: '#eb4b59',
   hiringTypeColor: '#487eb0',
   majorTypeColor: '#e1b12c',
+  degreeTypeColor: '#22a6b3',
   sponsorColor: '#1abc9c',
 };
 

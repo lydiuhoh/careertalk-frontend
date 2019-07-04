@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import LinesEllipsis from 'react-lines-ellipsis';
 
 import { BaseCard, LogoImage, HeartButton, Badge } from '../commons';
 import { NoteIcon } from '../Icons';
@@ -8,18 +7,17 @@ import { NoteIcon } from '../Icons';
 const Card = styled(BaseCard)`
   display: flex;
   position: relative;
-  with: 100%;
+  width: 100%;
+  min-height: 100px;
   justify-content: space-between;
   align-items: flex-start;
   cursor: pointer;
-  padding: ${props => (props.size === 'sm' ? '10px' : '15px')};
-  padding-bottom: 5px;
+  padding: 15px;
 `;
 
 const ImageBox = styled(LogoImage)``;
 
 const LogoAndContent = styled.div`
-  flex-start: left;
   display: flex;
   flex-direction: row;
 `;
@@ -27,37 +25,22 @@ const LogoAndContent = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  width: 100%;
-  margin-left: 5px;
+  justify-content: space-between;
+  padding-left: 7px;
 `;
 
 const CompanyTitle = styled.h1`
   font-size: 20px;
   font-weight: bold;
   color: ${props => props.theme.blueColor};
-  padding-bottom: 5px;
   span {
     font-size: 12px;
     color: ${props => props.theme.yellowColor};
   }
+  margin: 3px;
 `;
 
-const DescriptionTitle = styled.p`
-  color: ${props => props.theme.greyColor};
-  font-size: 12px;
-  padding: 5px 0;
-`;
-
-const DescriptionTitleEllipsis = styled(LinesEllipsis)`
-  color: ${props => props.theme.greyColor};
-  font-size: 12px;
-  padding: 5px 0;
-`;
-
-const DetailContent = styled.div`
-  padding: 5px 0;
-`;
+const DetailContent = styled.div``;
 
 const DetailInfoContainer = styled.div`
   display: flex;
@@ -68,17 +51,17 @@ const DetailInfoContainer = styled.div`
   width: 100%;
 `;
 
-// const DetailText = styled.p`
-//   padding: 1px 0;
-//   font-size: 12px;
-//   font-weight: 500;
-//   color: ${props => props.theme.midnightBlueColor};
-// `;
-
 const CardActions = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
+  min-width: 50px;
+`;
+
+const NoteWrapper = styled.div`
+  & svg {
+    fill: ${props => (props.visible ? '#7f8c8d' : 'none')};
+  }
 `;
 
 const HeartButtonExt = styled(HeartButton)``;
@@ -86,7 +69,8 @@ const HeartButtonExt = styled(HeartButton)``;
 export default ({
   employer,
   isLiked,
-  toggleLike,
+  isNoted,
+  onCardLike,
   onCardClick,
   hiringMajors,
   hiringTypes,
@@ -96,6 +80,11 @@ export default ({
 }) => {
   const positions = hiringTypes.join(', ');
   const majors = hiringMajors.join(', ');
+  let employerName = employer.name;
+
+  if (employer.name.length > 30) {
+    employerName = `${employer.name.slice(0, 30)}...`;
+  }
 
   return (
     <Card size={size} onClick={onCardClick}>
@@ -103,9 +92,9 @@ export default ({
         <ImageBox url={employer.company_url} size="sm" />
         <Content>
           <CompanyTitle>
-            {employer.name} {featured && <span>Featured</span>}
+            {employerName} {featured && <span>Featured</span>}
           </CompanyTitle>
-          {size !== 'sm' && (
+          {/* {size !== 'sm' && (
             <>
               <p>Chicago, IL</p>
               <DescriptionTitle>{employer.industry}</DescriptionTitle>
@@ -117,7 +106,7 @@ export default ({
                 basedOn="letters"
               />
             </>
-          )}
+          )} */}
           <DetailContent>
             <DetailInfoContainer>
               <Badge value={positions} type="hiring" />
@@ -130,8 +119,10 @@ export default ({
         </Content>
       </LogoAndContent>
       <CardActions>
-        <NoteIcon />
-        <HeartButtonExt isLiked={isLiked} onClick={toggleLike} />
+        <NoteWrapper visible={isNoted}>
+          <NoteIcon />
+        </NoteWrapper>
+        <HeartButtonExt isLiked={isLiked} onClick={onCardLike} />
       </CardActions>
     </Card>
   );

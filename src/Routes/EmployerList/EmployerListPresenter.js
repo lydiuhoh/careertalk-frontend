@@ -3,16 +3,19 @@ import styled from 'styled-components';
 
 import withRouteComponent from '../withRouteComponent';
 import { Container, LoadingLogo } from '../../Components/commons';
+import EmployerCard from '../../Components/EmployerCard';
+import EmployerModal from '../../Components/EmployerModal';
 import { ErrorBox } from '../ErrorFallback';
 
-const EmployerListContainer = styled(Container)``;
-
-const LoadingWrapper = styled.div`
-  display: grid;
-  justify-content: center;
-`;
-
-const EmployerListPresenter = ({ loading, employers, error }) => {
+const EmployerListPresenter = ({
+  loading,
+  selectedCompany,
+  showModal,
+  toggleModal,
+  toggleLike,
+  employerList,
+  error
+}) => {
   return (
     <EmployerListContainer>
       {error && <ErrorBox message={error.message} />}
@@ -21,13 +24,62 @@ const EmployerListPresenter = ({ loading, employers, error }) => {
           <LoadingLogo />
         </LoadingWrapper>
       )}
-      {!loading && !error && <EmployerListContent employers={employers} />}
+      {!loading && !error && (
+        <EmployerListContent
+          fair={employerList.fair}
+          toggleModal={toggleModal}
+          toggleLike={toggleLike}
+          employers={employerList.companies}
+        />
+      )}
+      {showModal && (
+        <EmployerModal
+          selectedCompany={selectedCompany}
+          selectedFair={employerList.fair}
+          modal={showModal}
+          toggleModal={toggleModal}
+        />
+      )}
     </EmployerListContainer>
   );
 };
 
-const EmployerListContent = ({ employers }) => (
-  <h1>Showing {employers.length} employers</h1>
+const EmployerListContent = ({ fair, employers, toggleModal, toggleLike }) => (
+  <>
+    <FairTitle>{fair.name}</FairTitle>
+    <EmployerListGrid>
+      {employers.map(employer => (
+        <EmployerCard
+          key={employer.id}
+          toggleModal={toggleModal}
+          toggleLike={toggleLike}
+          {...employer}
+        />
+      ))}
+    </EmployerListGrid>
+  </>
 );
+
+const EmployerListContainer = styled(Container)``;
+
+const LoadingWrapper = styled.div`
+  display: grid;
+  justify-content: center;
+`;
+
+const FairTitle = styled.h1`
+  font-size: 24px;
+  font-weight: 600;
+`;
+
+const EmployerListGrid = styled.div`
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+`;
 
 export default withRouteComponent(EmployerListPresenter);
