@@ -4,6 +4,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel
+} from 'react-accessible-accordion';
 
 import withRouteComponent from './withRouteComponent';
 import {
@@ -84,6 +91,9 @@ const EmployerObj2 = {
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
+      <Title>Accordian</Title>
+      <AccordionExample />
+
       <Title>Modal</Title>
       <ModalExample />
 
@@ -130,27 +140,35 @@ const Template = props => {
   );
 };
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    minWidth: '500px',
-    transform: 'translate(-50%, -50%)'
-  }
+// -------------------- Accordian ------------------------------------------- //
+
+const AccordionExample = () => {
+  return (
+    <Accordion allowMultipleExpanded allowZeroExpanded>
+      <AccordionItem>
+        <AccordionItemHeading>
+          <AccordionItemButton>Fair and Companies</AccordionItemButton>
+        </AccordionItemHeading>
+        <AccordionItemPanel>
+          <FairCard fair={FairObj} />
+          <EmployerCard {...EmployerObj} featured toggleLike={() => {}} toggleModal={() => {}} />
+          <EmployerCard {...EmployerObj2} toggleLike={() => {}} toggleModal={() => {}} />
+        </AccordionItemPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionItemHeading>
+          <AccordionItemButton>Top Companies</AccordionItemButton>
+        </AccordionItemHeading>
+        <AccordionItemPanel>
+          <EmployerCard {...EmployerObj} featured toggleLike={() => {}} toggleModal={() => {}} />
+          <EmployerCard {...EmployerObj2} toggleLike={() => {}} toggleModal={() => {}} />
+        </AccordionItemPanel>
+      </AccordionItem>
+    </Accordion>
+  );
 };
 
-const ModalContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ModalContent = styled.div`
-  padding: 15px 0;
-`;
-
-const CrossContainer = styled.div`
-  cursor: pointer;
-`;
+// -------------------- Modal Example ------------------------------------------- //
 
 const ModalExample = () => {
   const [modal, showModal] = useState(false);
@@ -179,6 +197,8 @@ const ModalExample = () => {
     </TemplateContainer>
   );
 };
+
+// -------------------- Employer Grid ------------------------------------------- //
 
 const EmployerGroups = () => {
   return (

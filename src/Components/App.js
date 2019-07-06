@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-accessible-accordion/dist/fancy-example.css';
 
 import GlobalStyle from '../styles/globalStyles';
 import theme from '../styles/theme';
