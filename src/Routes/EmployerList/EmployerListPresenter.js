@@ -5,6 +5,7 @@ import withRouteComponent from '../withRouteComponent';
 import { Container, LoadingLogo } from '../../Components/commons';
 import EmployerCard from '../../Components/EmployerCard';
 import EmployerModal from '../../Components/EmployerModal';
+import FilterOptionsAccordion from '../../Components/FilterOptionsAccordion';
 import { ErrorBox } from '../ErrorFallback';
 
 const EmployerListPresenter = ({
@@ -47,6 +48,9 @@ const EmployerListPresenter = ({
 const EmployerListContent = ({ fair, employers, toggleModal, toggleLike }) => (
   <>
     <FairTitle>{fair.name}</FairTitle>
+    <FilterOptionsContainer>
+      <FilterOptionsAccordion />
+    </FilterOptionsContainer>
     <EmployerListGrid>
       {employers.map(employer => (
         <EmployerCard
@@ -60,7 +64,12 @@ const EmployerListContent = ({ fair, employers, toggleModal, toggleLike }) => (
   </>
 );
 
+
 const EmployerListContainer = styled(Container)``;
+
+const FilterOptionsContainer = styled.div`
+  padding-top: 13px;
+`;
 
 const LoadingWrapper = styled.div`
   display: grid;
