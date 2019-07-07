@@ -38,6 +38,7 @@ import useInput from '../Hooks/useInput';
 import FairCard from '../Components/FairCard';
 import EmployerCard from '../Components/EmployerCard';
 import EmployerModal from '../Components/EmployerModal';
+import FilterOptionsAccordion from '../Components/FilterOptionsAccordion';
 import { CrossIcon } from '../Components/Icons';
 
 const FairObj = {
@@ -91,6 +92,9 @@ const EmployerObj2 = {
 const Template = props => {
   return (
     <Container isSideBar={props.isSideBar}>
+      <Title>Filter Options</Title>
+      <AccordionFilterExample />
+
       <Title>Accordian</Title>
       <AccordionExample />
 
@@ -137,6 +141,13 @@ const Template = props => {
       <Title>Grid Templates</Title>
       <GridGroups />
     </Container>
+  );
+};
+
+// -------------------- Filter Component  ------------------------------------------- //
+const AccordionFilterExample = () => {
+  return (
+    <FilterOptionsAccordion />
   );
 };
 
@@ -212,7 +223,7 @@ const EmployerGroups = () => {
 // Give styles to <h1>
 const Title = styled.h1`
   font-size: 20px;
-  padding: 3px;
+  padding: 10px 3px;
   font-weight: 600;
 `;
 

@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
 
-import { fadeIn, onActive } from './styles';
+import { fadeIn, onActive, onHoverEffect } from './styles';
 
 const propTypes = exact({
   value: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  showIcon: PropTypes.bool,
 });
 
 const BadgeContainer = styled.div`
@@ -43,12 +44,34 @@ const BadgeText = styled.p`
   font-size: 11px;
 `;
 
-const Badge = ({ value, type, onClick }) => (
+const Badge = ({ value, type, showIcon = false, onClick }) => (
   <BadgeContainer type={type} onClick={onClick}>
+    {showIcon && <CrossIcon />}
     <BadgeText>{value}</BadgeText>
   </BadgeContainer>
 );
 
-Badge.propTypes = propTypes;
+const FilterBadgeContainer = styled(BadgeContainer)`
+  ${onActive};
+  ${onHoverEffect};
+`;
 
-export { Badge };
+const CrossIcon = styled.div`
+  :after {
+    display: inline-block;
+    content: '\00d7';
+    margin-right: 3px;
+  }
+`;
+
+const FilterBadge = ({ value, type, showIcon = false, onClick }) => (
+  <FilterBadgeContainer type={type} onClick={onClick}>
+    {showIcon && <CrossIcon />}
+    <BadgeText>{value}</BadgeText>
+  </FilterBadgeContainer>
+);
+
+Badge.propTypes = propTypes;
+FilterBadge.propTypes = propTypes;
+
+export { Badge, FilterBadge };
