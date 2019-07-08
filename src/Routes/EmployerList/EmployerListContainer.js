@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 import { toast } from 'react-toastify';
 
 import { ISLOGGEDIN_QUERY } from '../../Apollo/sharedQueries';
-import { EMPLOYERS, TOGGLE_LIKE } from './EmployerListQueries';
+import { EMPLOYERS, TOGGLE_LIKE, EMPLOYERS_LOCAL } from './EmployerListQueries';
 import EmployerListPresenter from './EmployerListPresenter';
 import withRouteComponent from '../withRouteComponent';
 
@@ -12,6 +12,8 @@ const Employers = ({ match: { params: { fairId } } }) => {
   const [modalS, showModal] = useState(false);
   /** selected company state */
   const [selectedCompany, setCompanySelection] = useState(null);
+  /** employer list state to be shown in the grid */
+  const [employerListState, setEmployerList] = useState(null);
   /** graphql queries */
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const {
@@ -23,6 +25,19 @@ const Employers = ({ match: { params: { fairId } } }) => {
     context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
   });
   const toggleLikeMutation = useMutation(TOGGLE_LIKE);
+
+  // Temporary query data from cache
+  useQuery(EMPLOYERS_LOCAL, {
+    skip: employerListState === null,
+    variables: { fairId, isUser: isLoggedIn }
+  });
+
+  /** update the employerList state after downloading */
+  useEffect(() => {
+    if (!loading && employerList) {
+      setEmployerList(employerList);
+    }
+  }, [loading]);
 
   /**
    * Method for showing popup modal
@@ -66,7 +81,7 @@ const Employers = ({ match: { params: { fairId } } }) => {
       showModal={modalS}
       toggleModal={toggleModal}
       toggleLike={toggleLike}
-      employerList={employerList}
+      employerList={employerListState}
       selectedCompany={selectedCompany}
       error={error}
     />

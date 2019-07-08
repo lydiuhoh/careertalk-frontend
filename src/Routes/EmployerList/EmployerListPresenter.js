@@ -25,7 +25,7 @@ const EmployerListPresenter = ({
           <LoadingLogo />
         </LoadingWrapper>
       )}
-      {!loading && !error && (
+      {!loading && !error && employerList && (
         <EmployerListContent
           fair={employerList.fair}
           toggleModal={toggleModal}
