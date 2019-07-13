@@ -147,7 +147,7 @@ const Template = props => {
 // -------------------- Filter Component  ------------------------------------------- //
 const AccordionFilterExample = () => {
   return (
-    <FilterOptionsAccordion />
+    <FilterOptionsAccordion applyFilter={() => {}} />
   );
 };
 
