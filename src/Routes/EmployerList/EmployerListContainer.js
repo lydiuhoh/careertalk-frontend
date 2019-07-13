@@ -28,7 +28,7 @@ const Employers = ({ match: { params: { fairId } } }) => {
 
   // Temporary query data from cache
   useQuery(EMPLOYERS_LOCAL, {
-    skip: employerListState === null,
+    skip: true,
     variables: { fairId, isUser: isLoggedIn }
   });
 
