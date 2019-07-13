@@ -24,3 +24,4 @@ yarn-error.log*
 
 # App credentials
 config.json
+.env
