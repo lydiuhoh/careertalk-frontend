@@ -8,7 +8,7 @@ import withRouteComponent from './withRouteComponent';
 import { Container, Button, BaseCard } from '../Components/commons';
 import AppConfig from '../config.json';
 
-const googleClientId = AppConfig.GOOGLE_CLIENT_ID;
+const googleClientId = process.env.NODE_ENV === 'production' ? process.env.GOOGLE_CLIENT_ID : AppConfig.GOOGLE_CLIENT_ID;
 
 const HomeContainer = styled(Container)`
   display: flex;
