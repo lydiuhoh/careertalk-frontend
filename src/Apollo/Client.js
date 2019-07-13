@@ -9,7 +9,7 @@ export default new ApolloClient({
       : 'http://localhost:4000/graphql',
   clientState: {
     defaults,
-    resolvers
+    resolvers,
   },
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`
