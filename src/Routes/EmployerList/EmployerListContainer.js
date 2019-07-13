@@ -62,7 +62,10 @@ const Employers = ({ match: { params: { fairId } } }) => {
         data: {
           likeEmployer: { message, status }
         },
-      } = await toggleLikeMutation({ variables: { fairId, employerId } });
+      } = await toggleLikeMutation({
+        variables: { fairId, employerId },
+        context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      });
       if (status) {
         toast.success(`${message} ${name}`);
         return true;
