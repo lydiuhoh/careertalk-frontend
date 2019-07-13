@@ -75,6 +75,12 @@ const Employers = ({ match: { params: { fairId } } }) => {
     return false;
   };
 
+  /** Filter employer list */
+  const applyFilter = ({ filterOptions, visaOption }) => {
+    // TODO: Query apollo cache
+    console.log(filterOptions, visaOption);
+  };
+
   return (
     <EmployerListPresenter
       loading={loading}
@@ -83,6 +89,7 @@ const Employers = ({ match: { params: { fairId } } }) => {
       toggleLike={toggleLike}
       employerList={employerListState}
       selectedCompany={selectedCompany}
+      applyFilter={applyFilter}
       error={error}
     />
   );

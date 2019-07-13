@@ -15,6 +15,7 @@ const EmployerListPresenter = ({
   toggleModal,
   toggleLike,
   employerList,
+  applyFilter,
   error
 }) => {
   return (
@@ -30,6 +31,7 @@ const EmployerListPresenter = ({
           fair={employerList.fair}
           toggleModal={toggleModal}
           toggleLike={toggleLike}
+          applyFilter={applyFilter}
           employers={employerList.companies}
         />
       )}
@@ -45,11 +47,11 @@ const EmployerListPresenter = ({
   );
 };
 
-const EmployerListContent = ({ fair, employers, toggleModal, toggleLike }) => (
+const EmployerListContent = ({ fair, employers, toggleModal, toggleLike, applyFilter }) => (
   <>
     <FairTitle>{fair.name}</FairTitle>
     <FilterOptionsContainer>
-      <FilterOptionsAccordion />
+      <FilterOptionsAccordion applyFilter={applyFilter} />
     </FilterOptionsContainer>
     <EmployerListGrid>
       {employers.map(employer => (
