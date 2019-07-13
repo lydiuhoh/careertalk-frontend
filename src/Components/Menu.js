@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import { ISLOGGEDIN_QUERY, LOCAL_LOG_OUT, ME } from '../Apollo/sharedQueries';
 import { MapIcon, FlagIcon, FavoriteListIcon, FairsListIcon, ArrowRightIcon } from './Icons';
 import { Avatar } from './commons';
-import AppConfig from '../config.json';
+import { getGoogleClientId } from '../googleClient';
 
-const googleClientId = process.env.NODE_ENV === 'production' ? process.env.GOOGLE_CLIENT_ID : AppConfig.GOOGLE_CLIENT_ID;
+const googleClientId = getGoogleClientId();
 
 const SideMenuContainer = styled.div`
   height: 100vh;

@@ -3,9 +3,9 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 
 import { Container, Card, Loading } from '../../Components/commons';
-import AppConfig from '../../config.json';
+import { getGoogleClientId } from '../../googleClient';
 
-const googleClientId = process.env.NODE_ENV === 'production' ? process.env.GOOGLE_CLIENT_ID : AppConfig.GOOGLE_CLIENT_ID;
+const googleClientId = getGoogleClientId();
 
 const HomeContainer = styled(Container)`
   display: flex;
