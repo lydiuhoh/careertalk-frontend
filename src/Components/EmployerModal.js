@@ -58,6 +58,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
       fairId: selectedFair.id,
       employerId: selectedCompany.employer.id
     },
+    context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } },
     fetchPolicy: 'cache-and-network',
     // skip: !is_noted, TODO: skip the query is it does not have note
   });
@@ -88,7 +89,8 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
         fairId,
         employerId,
         content: note
-      }
+      },
+      context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
     });
 
     if (error) {
