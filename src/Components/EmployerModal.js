@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import TextareaAutosize from 'react-autosize-textarea';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import exact from 'prop-types-exact';
+import { gql } from 'apollo-boost';
+import { useQuery, useMutation } from 'react-apollo-hooks';
+import { toast } from 'react-toastify';
 
-import { LogoImage, Badge } from './commons';
+import { LogoImage, Badge, Loading } from './commons';
 import { CrossIcon, CalendarIcon } from './Icons';
 
 const propTypes = exact({
@@ -19,18 +22,53 @@ const propTypes = exact({
   selectedFair: PropTypes.object.isRequired
 });
 
+/** Query and Mudation */
+const SAVE_NOTE = gql`
+  mutation saveNote($fairId: String!, $employerId: String!, $content: String) {
+    saveNote(fairId: $fairId, employerId: $employerId, content: $content) {
+      message
+      status
+    }
+  }
+`;
+
+const GET_NOTE = gql`
+  query getNote($fairId: String!, $employerId: String!) {
+    getNote(fairId: $fairId, employerId: $employerId)
+  }
+`;
+
 const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) => {
   const [note, takeNote] = useState('');
   const [isNoteTaking, setIsNoteTaking] = useState(false);
+  const saveNoteMutation = useMutation(SAVE_NOTE);
   const {
     degree_requirements,
     hiring_majors,
     hiring_types,
+    // is_noted, TODO: uncomment this once is_noted is fixed
     employer: { company_url, name }
   } = selectedCompany;
   const fairDate = new Date(selectedFair.date).toDateString();
   const timeString = `${selectedFair.start_time} - ${selectedFair.end_time}`;
   const dateString = `${fairDate} ${timeString}`;
+
+  const { data: noteData, loading: noteLoading } = useQuery(GET_NOTE, {
+    variables: {
+      fairId: selectedFair.id,
+      employerId: selectedCompany.employer.id
+    },
+    context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } },
+    fetchPolicy: 'cache-and-network',
+    // skip: !is_noted, TODO: skip the query is it does not have note
+  });
+
+  // update the note state when it's ready
+  useEffect(() => {
+    if (noteData) {
+      takeNote(noteData.getNote);
+    }
+  }, [noteLoading]);
 
   const onTextChange = event => {
     const {
@@ -43,8 +81,24 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
     }
   };
 
-  const saveNote = () => {
-    console.log(`Saving.. ${note}`);
+  const saveNote = async () => {
+    const { id: fairId } = selectedFair;
+    const { employer: { id: employerId } } = selectedCompany;
+    const { data: { saveNote }, error } = await saveNoteMutation({
+      variables: {
+        fairId,
+        employerId,
+        content: note
+      },
+      context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+    });
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success(`${saveNote.message}`);
+      setIsNoteTaking(false);
+    }
   };
 
   return (
@@ -66,13 +120,19 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
           <h1 style={{ padding: '5px', fontSize: '20px', textAlign: 'center' }}>{name}</h1>
         </ModalContent>
         <ModalContent>
-          <TextareaAutosize
-            rows={3}
-            style={{ boxSizing: 'border-box', fontSize: '17px' }}
-            placeholder="Take note"
-            value={note}
-            onChange={onTextChange}
-          />
+          {noteLoading ? (
+            <LoadingWrapper>
+              <Loading />
+            </LoadingWrapper>
+          ) : (
+            <TextareaAutosize
+              rows={3}
+              style={{ boxSizing: 'border-box', fontSize: '17px' }}
+              placeholder="Take note"
+              value={note}
+              onChange={onTextChange}
+            />
+          )}
           {isNoteTaking && (
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5px' }}>
               <Badge value="Save" type="button" onClick={saveNote} />
@@ -148,6 +208,13 @@ const ModalContent = styled.div`
   width: 100%;
   flex-direction: column;
   padding: 15px 10px;
+`;
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
 
 const CrossContainer = styled.div`
