@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   Accordion,
@@ -17,6 +17,7 @@ const FilterOptionsAccordion = ({ applyFilter }) => {
   const [majorOptions, setMajors] = useState(FilterFields.majors);
   const [degreeOptions, setDegrees] = useState(FilterFields.degree);
   const [visaOption, setVisa] = useState(false);
+  const [pendingFilter, setPendingFilter] = useState(false);
   const [filterOptions, setFilter] = useState({
     hiring: new Map(),
     major: new Map(),
@@ -74,8 +75,10 @@ const FilterOptionsAccordion = ({ applyFilter }) => {
     setVisa(!visaOption);
   };
 
-  const { degree, hiring, major } = filterOptions;
-  const pendingFilter = degree.size > 0 || hiring.size > 0 || major.size > 0;
+  /** Show Apply button */
+  useEffect(() => {
+    setPendingFilter(true);
+  }, [filterOptions, visaOption]);
 
   return (
     <Accordion allowMultipleExpanded allowZeroExpanded>
