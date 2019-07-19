@@ -4,8 +4,22 @@ import { gql } from 'apollo-boost';
  * Query for getting employer list from cache
  */
 export const EMPLOYERS_LOCAL = gql`
-  query getEmployersCache($fairId: String, $isUser: Boolean) {
-    getEmployerListCache(fairId: $fairId, isUser: $isUser) @client
+  query getEmployersCache(
+    $fairId: String
+    $isUser: Boolean
+    $hiringFilter: [String]
+    $degreeFilter: [String]
+    $majorFilter: [String]
+    $visaFilter: Boolean
+  ) {
+    getEmployerListCache(
+      fairId: $fairId
+      isUser: $isUser
+      hiringFilter: $hiringFilter
+      degreeFilter: $degreeFilter
+      majorFilter: $majorFilter
+      visaFilter: $visaFilter
+    ) @client
   }
 `;
 

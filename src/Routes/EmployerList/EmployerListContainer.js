@@ -26,12 +26,6 @@ const Employers = ({ match: { params: { fairId } } }) => {
   });
   const toggleLikeMutation = useMutation(TOGGLE_LIKE);
 
-  // Temporary query data from cache
-  useQuery(EMPLOYERS_LOCAL, {
-    skip: true,
-    variables: { fairId, isUser: isLoggedIn }
-  });
-
   /** update the employerList state after downloading */
   useEffect(() => {
     if (!loading && employerList) {
@@ -78,11 +72,48 @@ const Employers = ({ match: { params: { fairId } } }) => {
     return false;
   };
 
-  /** Filter employer list */
+  // --------------------------- Filter ---------------------------------- //
+  /** Initialize filter options */
+  const [filterS, setFilter] = useState(false);
+  const [degreeFilterS, setDegreeFilter] = useState(null);
+  const [hiringFilterS, setHiringFilter] = useState(null);
+  const [majorFilterS, setMajorFilter] = useState(null);
+  const [visaFilterS, setVisaFilter] = useState(false);
+
+  /** Apply filter clicked and change the filter state */
   const applyFilter = ({ filterOptions, visaOption }) => {
-    // TODO: Query apollo cache
-    console.log(filterOptions, visaOption);
+    const { degree, hiring, major } = filterOptions;
+
+    setDegreeFilter([...degree.keys()]);
+    setHiringFilter([...hiring.keys()]);
+    setMajorFilter([...major.keys()]);
+    setVisaFilter(visaOption);
+    setFilter(true);
   };
+
+  /** Query employer list from cache with filter options */
+  const { data, loading: cacheLoading } = useQuery(EMPLOYERS_LOCAL, {
+    skip: !filterS,
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      fairId,
+      isUser: isLoggedIn,
+      hiringFilter: hiringFilterS,
+      degreeFilter: degreeFilterS,
+      majorFilter: majorFilterS,
+      visaFilter: visaFilterS
+    }
+  });
+
+  /** Update the employer list state with filtered result */
+  useEffect(() => {
+    if (data && data.getEmployerListCache) {
+      const { getEmployerListCache } = data;
+      setEmployerList(getEmployerListCache);
+    }
+  }, [cacheLoading]);
+
+  // --------------------------------------------------------------------- //
 
   return (
     <EmployerListPresenter
