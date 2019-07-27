@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Accordion,
@@ -12,17 +12,18 @@ import { FilterBadge, Button } from './commons';
 import FilterFields from '../lib/fields.json';
 
 const FilterOptionsAccordion = ({ applyFilter }) => {
+  const initialFilterState = {
+    hiring: new Map(),
+    major: new Map(),
+    degree: new Map()
+  };
+
   /** Default state of Component */
   const [hiringOptions, setHirings] = useState(FilterFields.hiring_types);
   const [majorOptions, setMajors] = useState(FilterFields.majors);
   const [degreeOptions, setDegrees] = useState(FilterFields.degree);
   const [visaOption, setVisa] = useState(false);
-  const [pendingFilter, setPendingFilter] = useState(false);
-  const [filterOptions, setFilter] = useState({
-    hiring: new Map(),
-    major: new Map(),
-    degree: new Map()
-  });
+  const [filterOptions, setFilter] = useState(initialFilterState);
 
   /** Add to filterOptions and filter selected option from list */
   const selectFilter = ({ field, type }) => {
@@ -42,6 +43,9 @@ const FilterOptionsAccordion = ({ applyFilter }) => {
       setDegrees(filterFunc);
       setFilter(filterOptFunc);
     }
+
+    /** Apply filter for all selections */
+    setTimeout(() => applyFilter({ filterOptions, visaOption }), 200);
   };
 
   /** Remove filterOptions and update the option list */
@@ -68,17 +72,35 @@ const FilterOptionsAccordion = ({ applyFilter }) => {
       setDegrees([...degreeOptions, newOption]);
       setFilter(filterOptFunc);
     }
+
+    /** Apply filter for all selections */
+    setTimeout(() => applyFilter({ filterOptions, visaOption }), 200);
   };
 
   /** Set visa option */
   const toggleVisa = () => {
-    setVisa(!visaOption);
+    if (visaOption) {
+      setVisa(false);
+      applyFilter({ filterOptions, visaOption: false });
+    } else {
+      setVisa(true);
+      applyFilter({ filterOptions, visaOption: true });
+    }
   };
 
-  /** Show Apply button */
-  useEffect(() => {
-    setPendingFilter(true);
-  }, [filterOptions, visaOption]);
+  const clearFilterFn = () => {
+    /** Set filters to default option */
+    if (visaOption) {
+      setVisa(!visaOption);
+    }
+    setHirings(FilterFields.hiring_types);
+    setDegrees(FilterFields.degree);
+    setMajors(FilterFields.majors);
+    setFilter(initialFilterState);
+
+    // Apply default filter (clear filter)
+    applyFilter({ filterOptions: initialFilterState, visaOption: false });
+  };
 
   return (
     <Accordion allowMultipleExpanded allowZeroExpanded>
@@ -132,14 +154,14 @@ const FilterOptionsAccordion = ({ applyFilter }) => {
             <FilterTitle>Sponsorship Needed?</FilterTitle>
             <input type="checkbox" checked={visaOption} onChange={toggleVisa} />
           </FilterItem>
-          {pendingFilter && (
-            <ApplyWrapper>
-              <ApplyButton
-                value="Apply"
-                onClick={() => applyFilter({ filterOptions, visaOption })}
-              />
-            </ApplyWrapper>
-          )}
+          {visaOption
+          || filterOptions.degree.size
+          || filterOptions.major.size
+          || filterOptions.hiring.size ? (
+            <ClearWrapper>
+              <ClearButton value="Clear" onClick={clearFilterFn} />
+            </ClearWrapper>
+            ) : null}
         </AccordionItemPanel>
       </AccordionItem>
     </Accordion>
@@ -197,13 +219,13 @@ const FilterTitle = styled.h1`
   padding: 5px 7px;
 `;
 
-const ApplyWrapper = styled.div`
+const ClearWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
 
-const ApplyButton = styled(Button)`
+const ClearButton = styled(Button)`
   width: 88px;
   background-color: ${props => props.theme.primaryColor};
   padding: 5px 0;
