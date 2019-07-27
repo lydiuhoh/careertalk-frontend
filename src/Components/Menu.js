@@ -155,6 +155,7 @@ const HeaderMenu = props => {
 
   const signOutGoogle = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
+    redirectFn('/');
     if (auth2 != null) {
       if (auth2.isSignedIn.get()) {
         auth2.signOut().then(auth2.disconnect().then(() => {
@@ -254,6 +255,7 @@ const BarMenu = props => {
 
   const signOutGoogle = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
+    redirectFn('/');
     if (auth2 != null) {
       if (auth2.isSignedIn.get()) {
         auth2.signOut().then(auth2.disconnect().then(() => {

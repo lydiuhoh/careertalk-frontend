@@ -16,10 +16,11 @@ const EmployerListPresenter = ({
   toggleLike,
   employerList,
   applyFilter,
+  isSideBar,
   error
 }) => {
   return (
-    <EmployerListContainer>
+    <EmployerListContainer isSideBar={isSideBar}>
       {error && <ErrorBox message={error.message} />}
       {loading && (
         <LoadingWrapper>
