@@ -7,7 +7,7 @@ import { EMPLOYERS, TOGGLE_LIKE, EMPLOYERS_LOCAL } from './EmployerListQueries';
 import EmployerListPresenter from './EmployerListPresenter';
 import withRouteComponent from '../withRouteComponent';
 
-const Employers = ({ match: { params: { fairId } } }) => {
+const Employers = ({ match: { params: { fairId } }, isSideBar }) => {
   /** show modal state */
   const [modalS, showModal] = useState(false);
   /** selected company state */
@@ -117,6 +117,7 @@ const Employers = ({ match: { params: { fairId } } }) => {
 
   return (
     <EmployerListPresenter
+      isSideBar={isSideBar}
       loading={loading}
       showModal={modalS}
       toggleModal={toggleModal}
