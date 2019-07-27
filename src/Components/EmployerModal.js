@@ -46,7 +46,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
     degree_requirements,
     hiring_majors,
     hiring_types,
-    // is_noted, TODO: uncomment this once is_noted is fixed
+    is_noted,
     employer: { company_url, name }
   } = selectedCompany;
   const fairDate = new Date(selectedFair.date).toDateString();
@@ -60,7 +60,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
     },
     context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } },
     fetchPolicy: 'cache-and-network',
-    // skip: !is_noted, TODO: skip the query is it does not have note
+    skip: !is_noted,
   });
 
   // update the note state when it's ready
