@@ -46,7 +46,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
     degree_requirements,
     hiring_majors,
     hiring_types,
-    is_noted,
+    state: { isNotedS },
     employer: { company_url, name }
   } = selectedCompany;
   const fairDate = new Date(selectedFair.date).toDateString();
@@ -60,7 +60,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
     },
     context: { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } },
     fetchPolicy: 'cache-and-network',
-    skip: !is_noted,
+    skip: !isNotedS,
   });
 
   // update the note state when it's ready
@@ -82,6 +82,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
   };
 
   const saveNote = async () => {
+    const { actions: { setIsNoted } } = selectedCompany;
     const { id: fairId } = selectedFair;
     const { employer: { id: employerId } } = selectedCompany;
     const { data: { saveNote }, error } = await saveNoteMutation({
@@ -98,6 +99,7 @@ const EmployerModal = ({ modal, toggleModal, selectedCompany, selectedFair }) =>
     } else {
       toast.success(`${saveNote.message}`);
       setIsNoteTaking(false);
+      setIsNoted(true);
     }
   };
 

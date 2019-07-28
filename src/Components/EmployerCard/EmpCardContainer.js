@@ -30,6 +30,7 @@ const propTypes = exact({
 
 const EmpCardContainer = props => {
   const [isLikedS, setIsLiked] = useState(props.is_liked);
+  const [isNotedS, setIsNoted] = useState(props.is_noted);
   const {
     employer,
     hiring_majors,
@@ -37,7 +38,6 @@ const EmpCardContainer = props => {
     visa_support,
     size,
     featured,
-    is_noted,
     toggleModal,
     toggleLike,
   } = props;
@@ -66,7 +66,9 @@ const EmpCardContainer = props => {
     } = event;
 
     if (nodeName !== 'svg' && nodeName !== 'path') {
-      toggleModal({ selected: props });
+      toggleModal({
+        selected: { ...props, actions: { setIsLiked, setIsNoted }, state: { isLikedS, isNotedS } }
+      });
     }
   };
 
@@ -74,7 +76,7 @@ const EmpCardContainer = props => {
     <EmpCardPresenter
       employer={employer}
       isLiked={isLikedS}
-      isNoted={is_noted}
+      isNoted={isNotedS}
       onCardLike={onCardLike}
       onCardClick={onCardClick}
       hiringMajors={hiring_majors}
