@@ -121,11 +121,6 @@ const Employers = ({ match: { params: { fairId } }, isSideBar }) => {
     } else {
       setFilterExpanded(false);
     }
-    // console.log(filterOptions);
-    console.log(hiringFilterS);
-    console.log(majorFilterS);
-    console.log(degreeFilterS);
-    console.log(visaFilterS);
   };
 
   // --------------------------------------------------------------------- //
