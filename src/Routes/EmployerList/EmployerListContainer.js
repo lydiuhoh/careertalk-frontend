@@ -14,6 +14,8 @@ const Employers = ({ match: { params: { fairId } }, isSideBar }) => {
   const [selectedCompany, setCompanySelection] = useState(null);
   /** employer list state to be shown in the grid */
   const [employerListState, setEmployerList] = useState(null);
+  /** is filter option expanded state */
+  const [isFilterExpanded, setFilterExpanded] = useState(false);
   /** graphql queries */
   const { data: { isLoggedIn } } = useQuery(ISLOGGEDIN_QUERY);
   const {
@@ -75,9 +77,9 @@ const Employers = ({ match: { params: { fairId } }, isSideBar }) => {
   // --------------------------- Filter ---------------------------------- //
   /** Initialize filter options */
   const [filterS, setFilter] = useState(false);
-  const [degreeFilterS, setDegreeFilter] = useState(null);
-  const [hiringFilterS, setHiringFilter] = useState(null);
-  const [majorFilterS, setMajorFilter] = useState(null);
+  const [degreeFilterS, setDegreeFilter] = useState([]);
+  const [hiringFilterS, setHiringFilter] = useState([]);
+  const [majorFilterS, setMajorFilter] = useState([]);
   const [visaFilterS, setVisaFilter] = useState(false);
 
   /** Apply filter clicked and change the filter state */
@@ -113,6 +115,19 @@ const Employers = ({ match: { params: { fairId } }, isSideBar }) => {
     }
   }, [cacheLoading]);
 
+  const onFilterExpanded = ({ option }) => {
+    if (option.length) {
+      setFilterExpanded(true);
+    } else {
+      setFilterExpanded(false);
+    }
+    // console.log(filterOptions);
+    console.log(hiringFilterS);
+    console.log(majorFilterS);
+    console.log(degreeFilterS);
+    console.log(visaFilterS);
+  };
+
   // --------------------------------------------------------------------- //
 
   return (
@@ -125,6 +140,12 @@ const Employers = ({ match: { params: { fairId } }, isSideBar }) => {
       employerList={employerListState}
       selectedCompany={selectedCompany}
       applyFilter={applyFilter}
+      onFilterExpanded={onFilterExpanded}
+      isFilterExpanded={isFilterExpanded}
+      degreeFilter={degreeFilterS}
+      hiringFilter={hiringFilterS}
+      majorFilter={majorFilterS}
+      visaFilter={visaFilterS}
       error={error}
     />
   );

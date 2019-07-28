@@ -11,7 +11,7 @@ import {
 import { FilterBadge, Button } from './commons';
 import FilterFields from '../lib/fields.json';
 
-const FilterOptionsAccordion = ({ applyFilter }) => {
+const FilterOptionsAccordion = ({ applyFilter, onFilterExpanded }) => {
   const initialFilterState = {
     hiring: new Map(),
     major: new Map(),
@@ -103,7 +103,11 @@ const FilterOptionsAccordion = ({ applyFilter }) => {
   };
 
   return (
-    <Accordion allowMultipleExpanded allowZeroExpanded>
+    <Accordion
+      allowMultipleExpanded
+      allowZeroExpanded
+      onChange={props => onFilterExpanded({ option: props })}
+    >
       <AccordionItem>
         <AccordionItemHeading>
           <AccordionItemButton>Filter Options</AccordionItemButton>
@@ -173,7 +177,7 @@ const FilterByContainer = ({ filterOptions, visaOption, toggleVisa, removeFilter
 
   return (
     <FilterItem>
-      <FilterTitle>Filtering:</FilterTitle>
+      <FilterTitle>Filter By:</FilterTitle>
       {[...hiring.keys()].map(key => (
         <FilterBadge
           value={hiring.get(key)}
