@@ -184,7 +184,7 @@ const HeaderMenu = props => {
         <SideMenuIcon>
           <FairsListIcon />
         </SideMenuIcon>
-        <SideMenuTitle>Fairs</SideMenuTitle>
+        <SideMenuTitle onClick={() => redirectFn('/')}>Fairs</SideMenuTitle>
       </MenuItem>
       <MenuItem>
         <SideMenuIcon>
@@ -292,7 +292,7 @@ const BarMenu = props => {
         <SideMenuIcon>
           <FairsListIcon />
         </SideMenuIcon>
-        <SideMenuTitle>Fairs</SideMenuTitle>
+        <SideMenuTitle onClick={() => redirectFn('/')}>Fairs</SideMenuTitle>
       </SideMenuItem>
       <SideMenuItem>
         <SideMenuIcon>
